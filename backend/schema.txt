@@ -1,0 +1,12 @@
+npx sequelize model:generate --name Spot --attributes address:string,city:string,state:string,country:string,lat:decimal,lng:decimal,name:string,description:string,price:decimal
+
+npx sequelize model:generate --name Booking --attributes startDate:date,endDate:date
+
+npx sequelize model:generate --name Review --attributes review:string,stars:integer
+
+npx sequelize model:generate --name ReviewImage --attributes url:string
+
+npx sequelize model:generate --name SpotImage --attributes url:string,preview:boolean
+
+
+
