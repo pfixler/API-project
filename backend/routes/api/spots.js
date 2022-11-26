@@ -173,6 +173,65 @@ router.get('/current', async (req, res) => {
 })
 
 
+router.post('/', async (req, res) => {
+    const {user} = req;
+    const {address, city, state, country,
+        lat, lng, name, description, price} =  req.body;
+
+        let validLat;
+        let validLng;
+
+        if (typeof lat === 'number' && lat <= 180 && lat >= -180) {
+            validLat = true;
+        }
+        else {
+            validLat = false;
+        }
+
+        if (typeof lng === 'number' && lng <= 180 && lng >= -180) {
+            validLng = true;
+        }
+        else {
+            validLng = false;
+        }
+
+        if (!address || !city || !state || !country ||
+            !validLat || !validLng || name.length > 50 ||
+            !description || !price) {
+            res.status(400);
+            res.json({
+                message: "Validation Error",
+                statusCode: 400,
+                errors: {
+                    address: "Street address is required",
+                    city: "City is required",
+                    state: "State is required",
+                    country: "Country is required",
+                    lat: "Latitude is not valid",
+                    lng: "Longitude is not valid",
+                    name: "Name must be less than 50 characters",
+                    description: "Description is required",
+                    price: "Price per day is required"
+                  }
+            })
+
+            let err = new Error("Body validation error");
+            err.statusCode = 400;
+            err.message = "Body validation error";
+
+            return (console.log(err));
+        }
+
+        else {
+            const newSpot = await Spot.create({
+            ownerId: user.id, ...req.body
+            })
+            res.json(newSpot);
+        }
+})
+
+
+
 // get all the spots with avg rating and preview img
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll({
