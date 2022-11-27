@@ -403,6 +403,59 @@ router.put('/:spotId', requireAuth, async (req, res) => {
 
     const updatedSpot = await Spot.findByPk(spotId);
     res.json(updatedSpot);
+});
+
+
+//delete a spot
+router.delete('/:spotId', requireAuth, async (req, res) => {
+    const {user} = req;
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Spot with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Spot with the specified id";
+
+        return (console.log(err));
+    }
+
+
+    if (spot.ownerId != user.id) {
+        res.status(403);
+        res.json({
+            message: "Forbidden",
+            statusCode: 403,
+            errors: {
+                userId: "spot must belong to the current user"
+            }
+        })
+
+        let err = new Error("Authorization error");
+        err.statusCode = 403;
+        err.message = "Authorization error";
+
+        return (console.log(err));
+    }
+
+
+
+    await Spot.destroy({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+    res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+      })
 })
 
 
