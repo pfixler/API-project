@@ -1,5 +1,6 @@
 const express = require('express');
-const { Spot, Review, SpotImage, Booking } = require('../../db/models');
+const { where } = require('sequelize');
+const { Spot, Review, SpotImage, Booking, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -119,6 +120,75 @@ router.post('/:spotId/bookings', async (req, res, next) => {
 });
 
 
+//get details of a spot based on its id
+router.get('/:spotId', async (req, res) => {
+    const spotId = req.params.spotId;
+    let spotArr = [];
+
+    const getSpot = await Spot.findByPk(spotId,{
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: SpotImage,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'spotId']
+                }
+            },
+
+        ]
+    });
+
+
+    if (!getSpot) {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+
+        })
+
+        let err = new Error("Couldn't find a Spot with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Spot with the specified id";
+
+        return (console.log(err));
+    }
+
+    spotArr.push(getSpot.toJSON());
+
+    totalStars = 0;
+    totalReviews = 0;
+    await spotArr[0].Reviews.forEach(review => {
+        totalStars +=review.stars;
+        totalReviews++;
+    })
+    let avg = totalStars/totalReviews;
+    spotArr[0].avgRating = avg;
+    spotArr[0].numReviews = totalReviews;
+    // console.log(getSpot.avgRating);
+    // console.log(getSpot.numReviews);
+
+    if (!avg) {
+        spotArr[0].avgStarRating = 'no ratings for this spot';
+
+    }
+    delete spotArr[0].Reviews;
+
+    let getSpotForOwner = await Spot.findByPk(spotId);
+    const getSpotOwnerId = getSpotForOwner.ownerId;
+    const owner = await User.findByPk(getSpotOwnerId);
+    spotArr[0].Owner = {
+        id: owner.id,
+        firstName: owner.firstName,
+        lastName: owner.lastName
+    };
+
+    res.json(spotArr[0]);
+})
+
+
 //get all spots of current user
 router.get('/current', async (req, res) => {
 
@@ -172,7 +242,7 @@ router.get('/current', async (req, res) => {
     res.json(spotsList);
 })
 
-
+//create a spot
 router.post('/', async (req, res) => {
     const {user} = req;
     const {address, city, state, country,
