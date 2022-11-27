@@ -5,6 +5,57 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+//add an image to a spot based on spots id
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+    const {user} = req;
+    const {url, preview} = req.body;
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Spot with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Spot with the specified id";
+
+        return (console.log(err));
+    }
+
+    if (req.params.spotId != user.id) {
+        res.status(403);
+        res.json({
+            message: "Forbidden",
+            statusCode: 403,
+            errors: {
+                userId: "spot must belong to the current user"
+            }
+        })
+
+        let err = new Error("Authorization error");
+        err.statusCode = 403;
+        err.message = "Authorization error";
+
+        return (console.log(err));
+    }
+
+
+    const newImage = await SpotImage.create({
+        spotId: spot.id, url: url, preview: preview
+    });
+
+    const returnImage = await SpotImage.findByPk(newImage.id, {
+        attributes: {
+            exclude: ['spotId', 'createdAt', 'updatedAt']
+        }
+    })
+    res.json(returnImage);
+})
+
 
 //create a booking from a spot based on the spots id
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
