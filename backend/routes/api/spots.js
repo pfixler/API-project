@@ -1,12 +1,13 @@
 const express = require('express');
 const { where } = require('sequelize');
 const { Spot, Review, SpotImage, Booking, User } = require('../../db/models');
+const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
 
 //create a booking from a spot based on the spots id
-router.post('/:spotId/bookings', async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const {user} = req;
     const bookingSpot = await Spot.findByPk(req.params.spotId);
 
@@ -54,7 +55,7 @@ router.post('/:spotId/bookings', async (req, res, next) => {
     else if (user.id == bookingSpot.ownerId) {
         res.status(403);
         res.json({
-            message: "Authorization error",
+            message: "Forbidden",
             statusCode: 403,
             errors: {
                 userId: "user can not book a spot they own"
@@ -167,8 +168,7 @@ router.get('/:spotId', async (req, res) => {
     let avg = totalStars/totalReviews;
     spotArr[0].avgRating = avg;
     spotArr[0].numReviews = totalReviews;
-    // console.log(getSpot.avgRating);
-    // console.log(getSpot.numReviews);
+
 
     if (!avg) {
         spotArr[0].avgStarRating = 'no ratings for this spot';
@@ -190,7 +190,7 @@ router.get('/:spotId', async (req, res) => {
 
 
 //get all spots of current user
-router.get('/current', async (req, res) => {
+router.get('/current', requireAuth, async (req, res) => {
 
     // console.log(req);
     const {user} = req;
@@ -243,7 +243,7 @@ router.get('/current', async (req, res) => {
 })
 
 //create a spot
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     const {user} = req;
     const {address, city, state, country,
         lat, lng, name, description, price} =  req.body;
