@@ -731,6 +731,37 @@ router.post('/', requireAuth, async (req, res) => {
 
 // get all the spots with avg rating and preview img
 router.get('/', async (req, res) => {
+    //query parameters
+    let { page, size } = req.query;
+    if(!page) page = 1
+    if(!size) size = 20
+
+    let pagination = {}
+    if (parseInt(page) >= 1 && parseInt(page) <= 10 && parseInt(size) >= 1 && parseInt(size) <= 20) {
+        pagination.limit = size
+        pagination.offset = size * (page - 1)
+    }
+    else {
+        res.status(400);
+        res.json({
+            message: "Validation Error",
+            statusCode: 400,
+            errors: {
+                page: "Page must be greater than or equal to 1",
+                size: "Size must be greater than or equal to 1",
+            }
+        })
+
+        let err = new Error("Query parameter validation errors");
+        err.statusCode = 400;
+        err.message = "Query parameter validation errors";
+
+        return (console.log(err));
+    }
+
+
+
+
     const spots = await Spot.findAll({
         include: [
             {
@@ -739,8 +770,8 @@ router.get('/', async (req, res) => {
             {
                 model: SpotImage
             }
-        ]
-
+        ],
+        ...pagination
     })
 
     let spotsList = [];
@@ -777,7 +808,7 @@ router.get('/', async (req, res) => {
     })
     // console.log(spots);
 
-    const spotsObj = {};
+    const spotsObj = {page, size};
     spotsObj.Spots = spotsList;
 
     res.json(spotsObj);
