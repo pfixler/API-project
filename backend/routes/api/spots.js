@@ -8,6 +8,69 @@ const Sequelize = require('sequelize')
 const router = express.Router();
 
 
+//get all bookings for a spot based on spot id
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+    const {user} = req;
+    const spotId = req.params.id;
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Spot with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Spot with the specified id";
+
+        return (console.log(err));
+    }
+
+    const notOwnerBookings = await Booking.findAll({
+        where: {
+            spotId: spot.id
+        },
+        attributes: {
+            exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+        }
+    })
+
+
+    const ownerBookings = await Booking.findAll({
+        where: {
+            spotId: spot.id
+        },
+            include: [
+                {
+                    model: User,
+                    attributes: {
+                        exclude: ['username', 'email',
+                        'hashedPassword', 'createdAt', 'updatedAt']
+                    }
+                },
+
+            ]
+    })
+
+
+    if (user.id != spot.ownerId) {
+        let bookingObj = {};
+        bookingObj.Bookings = notOwnerBookings
+        return res.json(bookingObj);
+    }
+
+    if (user.id == spot.ownerId) {
+        let bookingObj = {};
+        bookingObj.Bookings = ownerBookings;
+        return res.json(bookingObj);
+    }
+
+})
+
+
 //create a review for a spot based on the spots id
 router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     const {review, stars} = req.body;
