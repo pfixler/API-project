@@ -216,4 +216,76 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 })
 
 
+
+//delete a booking
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const {user} = req;
+    const booking = await Booking.findByPk(req.params.bookingId);
+
+    if (!booking) {
+        res.status(404);
+        res.json({
+            message: "Booking couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Booking with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Booking with the specified id";
+
+        return (console.log(err));
+    }
+
+    const spot = await Spot.findByPk(booking.spotId);
+
+    if (booking.userId != user.id && spot.ownerId != user.id) {
+        res.status(403);
+        res.json({
+            message: "Forbidden",
+            statusCode: 403,
+            errors: {
+                userId: "booking must belong to the current user or the spot must belong to the current user"
+            }
+        })
+
+        let err = new Error("Authorization error");
+        err.statusCode = 403;
+        err.message = "Authorization error";
+
+        return (console.log(err));
+    }
+
+
+    if (new Date(booking.startDate).getTime() < Date.now()) {
+        res.status(403);
+        res.json({
+            message: "Bookings that have been started can't be deleted",
+            statusCode: 403,
+
+        })
+
+        let err = new Error("Bookings that have been started can't be deleted");
+        err.statusCode = 403;
+        err.message = "Bookings that have been started can't be deleted";
+
+        return (console.log(err));
+    }
+
+
+    await Booking.destroy({
+        where: {
+            id: req.params.bookingId
+        }
+    })
+
+    res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+      })
+
+
+})
+
+
 module.exports = router;
