@@ -7,6 +7,7 @@ const { Model } = require('sequelize');
 const router = express.Router();
 
 
+
 //get all the reviews written by current user
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
