@@ -28,7 +28,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         return (console.log(err));
     }
 
-    if (req.params.spotId != user.id) {
+    if (spot.ownerId != user.id) {
         res.status(403);
         res.json({
             message: "Forbidden",
@@ -317,7 +317,7 @@ router.put('/:spotId', requireAuth, async (req, res) => {
         return (console.log(err));
     }
 
-    if (req.params.spotId != user.id) {
+    if (spot.ownerId != user.id) {
         res.status(403);
         res.json({
             message: "Forbidden",
