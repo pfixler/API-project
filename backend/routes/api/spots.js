@@ -1,11 +1,76 @@
 const express = require('express');
 const { where } = require('sequelize');
-const { Spot, Review, SpotImage, Booking, User } = require('../../db/models');
+const { Spot, Review, SpotImage, Booking, User, ReviewImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const Sequelize = require('sequelize')
 
 
 const router = express.Router();
+
+
+//get all the reviews the belong to the spot specified by id
+router.get('/:spotId/reviews', async (req, res) => {
+    const {user} = req;
+    const spotId = req.params.id;
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Spot with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Spot with the specified id";
+
+        return (console.log(err));
+    }
+    const users = await User.findAll();
+
+    const spotReviews = await Review.findAll({
+        where: {
+            spotId: spot.id
+        },
+        include: [
+            {
+                model: ReviewImage,
+                attributes:
+                {exclude: ['createdAt', 'updatedAt', 'reviewId']}
+        }
+    ]
+    })
+
+    let spotReviewList = [];
+    spotReviews.forEach(spot => {
+        spotReviewList.push(spot.toJSON());
+    });
+
+    spotReviewList.forEach(async review => {
+        let userId = review.userId;
+        for (let i = 0; i < users.length; i++) {
+            if (userId === users[i].id) {
+                thisUser = users[i];
+                review.User = {
+                    id: thisUser.id,
+                    firstName: thisUser.firstName,
+                    lastName: thisUser.lastName
+                };
+            }
+        }
+
+    })
+    // console.log(spotReviewList);
+
+
+    const reviewsObj = {};
+    reviewsObj.Reviews = spotReviewList;
+    res.json(reviewsObj);
+})
+
+
 
 //add an image to a spot based on spots id
 router.post('/:spotId/images', requireAuth, async (req, res) => {
