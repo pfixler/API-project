@@ -729,8 +729,9 @@ router.post('/', requireAuth, async (req, res) => {
 
 
 // get all the spots with avg rating and preview img query version
-router.get('/?', async (req, res) => {
+router.get('/', async (req, res) => {
     //query parameters
+    if (req.query.page) {
     let { page, size } = req.query;
     if(!page) page = 1
     if(!size) size = 20
@@ -811,44 +812,9 @@ router.get('/?', async (req, res) => {
     spotsObj.Spots = spotsList;
 
     res.json(spotsObj);
-});
+}
 
-
-
-
-// get all the spots with avg rating and preview img
-router.get('/', async (req, res) => {
-    //query parameters
-    // let { page, size } = req.query;
-    // if(!page) page = 1
-    // if(!size) size = 20
-
-    // let pagination = {}
-    // if (parseInt(page) >= 1 && parseInt(page) <= 10 && parseInt(size) >= 1 && parseInt(size) <= 20) {
-    //     pagination.limit = size
-    //     pagination.offset = size * (page - 1)
-    // }
-    // else {
-    //     res.status(400);
-    //     res.json({
-    //         message: "Validation Error",
-    //         statusCode: 400,
-    //         errors: {
-    //             page: "Page must be greater than or equal to 1",
-    //             size: "Size must be greater than or equal to 1",
-    //         }
-    //     })
-
-    //     let err = new Error("Query parameter validation errors");
-    //     err.statusCode = 400;
-    //     err.message = "Query parameter validation errors";
-
-    //     return (console.log(err));
-    // }
-
-
-
-
+else {
     const spots = await Spot.findAll({
         include: [
             {
@@ -900,7 +866,97 @@ router.get('/', async (req, res) => {
     spotsObj.Spots = spotsList;
 
     res.json(spotsObj);
+}
 });
+
+
+
+
+// // get all the spots with avg rating and preview img
+// router.get('/', async (req, res) => {
+//     //query parameters
+//     // let { page, size } = req.query;
+//     // if(!page) page = 1
+//     // if(!size) size = 20
+
+//     // let pagination = {}
+//     // if (parseInt(page) >= 1 && parseInt(page) <= 10 && parseInt(size) >= 1 && parseInt(size) <= 20) {
+//     //     pagination.limit = size
+//     //     pagination.offset = size * (page - 1)
+//     // }
+//     // else {
+//     //     res.status(400);
+//     //     res.json({
+//     //         message: "Validation Error",
+//     //         statusCode: 400,
+//     //         errors: {
+//     //             page: "Page must be greater than or equal to 1",
+//     //             size: "Size must be greater than or equal to 1",
+//     //         }
+//     //     })
+
+//     //     let err = new Error("Query parameter validation errors");
+//     //     err.statusCode = 400;
+//     //     err.message = "Query parameter validation errors";
+
+//     //     return (console.log(err));
+//     // }
+
+
+
+
+//     const spots = await Spot.findAll({
+//         include: [
+//             {
+//                 model: Review
+//             },
+//             {
+//                 model: SpotImage
+//             }
+//         ],
+//         // ...pagination
+//     })
+
+//     let spotsList = [];
+//     spots.forEach(spot => {
+//         spotsList.push(spot.toJSON());
+//     });
+
+//     spotsList.forEach(spot => {
+//         spot.SpotImages.forEach(image => {
+//             if (image.preview === true) {
+//                 spot.previewImage = image.url;
+//             }
+//         })
+//         if (!spot.previewImage) {
+//             spot.previewImage = 'no preview image found'
+//         }
+//         delete spot.SpotImages;
+//     })
+
+//     spotsList.forEach(spot => {
+//         totalStars = 0;
+//         totalReviews = 0;
+//         spot.Reviews.forEach(review => {
+//             totalStars +=review.stars;
+//             totalReviews++;
+//         })
+//         let avg = totalStars/totalReviews;
+//         spot.avgRating = avg;
+//         if (!avg) {
+//             spot.avgRating = 'no ratings for this spot';
+
+//         }
+//         delete spot.Reviews;
+//     })
+//     // console.log(spots);
+
+//     // const spotsObj = {page, size};
+//     const spotsObj = {};
+//     spotsObj.Spots = spotsList;
+
+//     res.json(spotsObj);
+// });
 
 
 
