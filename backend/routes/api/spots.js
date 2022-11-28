@@ -223,7 +223,11 @@ router.get('/current', requireAuth, async (req, res) => {
         }
         delete spot.Reviews;
     })
-    res.json(spotsList);
+
+    const spotsObj = {};
+    spotsObj.Spots = spotsList;
+
+    res.json(spotsObj);
 })
 
 //get details of a spot based on its id
@@ -568,7 +572,10 @@ router.get('/', async (req, res) => {
     })
     // console.log(spots);
 
-    res.json(spotsList);
+    const spotsObj = {};
+    spotsObj.Spots = spotsList;
+
+    res.json(spotsObj);
 });
 
 
