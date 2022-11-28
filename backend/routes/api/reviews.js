@@ -2,7 +2,7 @@ const express = require('express');
 const { User, Review, Spot, ReviewImage, SpotImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const Sequelize = require('sequelize');
-const { Model } = require('sequelize');
+const { Model, where } = require('sequelize');
 
 const router = express.Router();
 
@@ -138,6 +138,85 @@ router.get('/current', requireAuth, async (req, res) => {
     const reviewsObj = {};
     reviewsObj.Reviews = reviewList;
     res.json(reviewsObj);
+})
+
+
+//edit a review
+router.put('/:reviewId', requireAuth, async (req, res) => {
+    const {user} = req;
+    const {review, stars} = req.body;
+    const reviewUpdate = await Review.findByPk(req.params.reviewId);
+
+
+    if (!reviewUpdate) {
+        res.status(404);
+        res.json({
+            message: "Review couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Review with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Review with the specified id";
+
+        return (console.log(err));
+    }
+
+
+    if (reviewUpdate.userId != user.id) {
+        res.status(403);
+        res.json({
+            message: "Forbidden",
+            statusCode: 403,
+            errors: {
+                userId: "review must belong to the current user"
+            }
+        })
+
+        let err = new Error("Authorization error");
+        err.statusCode = 403;
+        err.message = "Authorization error";
+
+        return (console.log(err));
+    }
+
+
+    if (!review || stars > 5 || stars < 1) {
+        res.status(400);
+        res.json({
+            message: "Validation error",
+            statusCode: 400,
+            errors: {
+                review: "Review text is required",
+                stars: "Stars must be an integer from 1 to 5"
+            }
+        })
+
+        let err = new Error('Body validation errors');
+        err.statusCode = 400;
+        err.message = "Body validation errors";
+
+        return (console.log(err));
+    }
+
+
+    await Review.update(
+        {
+            review: review,
+            stars: stars,
+            updatedAt: Sequelize.literal('CURRENT_TIMESTAMP')
+        },
+        {
+            where: {
+                id: req.params.reviewId
+            }
+        }
+    )
+
+    const updatedReview = await Review.findByPk(req.params.reviewId);
+    res.json(updatedReview);
+
 })
 
 
