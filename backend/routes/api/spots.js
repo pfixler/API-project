@@ -8,6 +8,83 @@ const Sequelize = require('sequelize')
 const router = express.Router();
 
 
+//create a review for a spot based on the spots id
+router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+    const {review, stars} = req.body;
+    const {user} = req;
+    const reviewSpot = await Spot.findByPk(req.params.spotId);
+    const reviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+
+    if (!reviewSpot) {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+
+        });
+
+        let err = new Error("Couldn't find a Spot with the specified id");
+        err.statusCode = 404;
+        err.message = "Couldn't find a Spot with the specified id";
+
+        return (console.log(err));
+    }
+
+    if (!review || stars > 5 || stars < 1) {
+        res.status(400);
+        res.json({
+            message: "Validation error",
+            statusCode: 400,
+            errors: {
+                review: "Review text is required",
+                stars: "Stars must be an integer from 1 to 5"
+            }
+        })
+
+        let err = new Error('Body validation errors');
+        err.statusCode = 400;
+        err.message = "Body validation errors";
+
+        return (console.log(err));
+    }
+
+    let reviewBoolean;
+    reviews.forEach(review => {
+        if (review.userId == user.id) {
+            reviewBoolean = false;
+        }
+    })
+
+    if (reviewBoolean === false) {
+        res.status(403);
+        res.json({
+            message: "User already has a review for this spot",
+            statusCode: 403,
+
+        });
+
+        let err = new Error("Review from the current user already exists for the Spot");
+        err.statusCode = 403;
+        err.message = "Review from the current user already exists for the Spot";
+
+        return (console.log(err));
+    }
+
+
+
+    const newReview = await Review.create({
+        userId: user.id, spotId: req.params.spotId, ...req.body
+    });
+
+    res.json(newReview);
+
+})
+
+
 //get all the reviews the belong to the spot specified by id
 router.get('/:spotId/reviews', async (req, res) => {
     const {user} = req;
