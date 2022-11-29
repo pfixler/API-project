@@ -371,7 +371,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     else {
         const newBooking = await Booking.create({
-            spotId: req.params.spotId, userId: user.id, ...req.body
+            spotId: newBooking.spotId, userId: user.id, ...req.body
         })
 
         res.json(newBooking);
