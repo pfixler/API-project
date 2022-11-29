@@ -5,6 +5,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
+const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
@@ -38,9 +39,9 @@ router.post(
 
     await setTokenCookie(res, user);
 
-    return res.json({
+    return res.json(
       user
-    });
+    );
   }
 );
 
@@ -55,14 +56,19 @@ router.delete(
 
   // Restore session user
 router.get(
-    '/',
-    restoreUser,
+  '/',
+  restoreUser,
+  requireAuth,
     (req, res) => {
       const { user } = req;
+      let userObj = {id:user.id, firstName:user.firstName,
+      lastName:user.lastName, email:user.email,
+      username:user.username};
       if (user) {
-        return res.json({
-          user: user.toSafeObject()
-        });
+        return res.json(
+          userObj
+          // user.toSafeObject()
+        );
       } else return res.json({});
     }
   );
