@@ -39,10 +39,10 @@ router.post(
 
     await setTokenCookie(res, user);
     const userObj = {id: user.id, firstName: user.firstName,
-      lastName: user.lastName, email: user.email, username: user.username, token: ""};
+      lastName: user.lastName, email: user.email, username: user.username};
 
     return res.json(
-      userObj
+      {user:userObj}
     );
   }
 );
@@ -60,18 +60,17 @@ router.delete(
 router.get(
   '/',
   restoreUser,
-  requireAuth,
+  // requireAuth,
     (req, res) => {
       const { user } = req;
-      let userObj = {id:user.id, firstName:user.firstName,
-      lastName:user.lastName, email:user.email,
-      username:user.username};
       if (user) {
+        let userObj = {id:user.id, firstName:user.firstName,
+        lastName:user.lastName, email:user.email,
+        username:user.username};
         return res.json(
-          userObj
-          // user.toSafeObject()
+          {user: userObj}
         );
-      } else return res.json({});
+      } else return res.json({user: null});
     }
   );
 
