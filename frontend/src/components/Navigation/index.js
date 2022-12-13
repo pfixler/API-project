@@ -33,12 +33,26 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div>
+      <ul className='header'>
+        <li>
+          <NavLink exact to="/">
+            <div className='airbnb-logo'>
+              {/* home */}
+              <img className='airbnb-logo' src="https://www.logosurfer.com/wp-content/uploads/2018/03/airbnb-logo_1.png"  alt="Airbnb Logo" />
+            </div>
+          </NavLink>
+        </li>
+        {/* <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+        <div id="myDropdown" class="header-dropdown-content"> */}
+
+          {isLoaded && sessionLinks}
+        {/* </div> */}
+      </ul>
+      {/* {icons} */}
+      {/* {cards} */}
+      {/* {footer} */}
+    </div>
   );
 }
 
