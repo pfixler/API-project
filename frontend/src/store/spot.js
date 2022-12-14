@@ -38,7 +38,7 @@ export const getAllSpots = () => async (dispatch) => {
     if (response.ok) {
         const spots = await response.json();
         dispatch(loadAll(spots));
-        return spots;
+        // return spots;
     }
 };
 
@@ -96,29 +96,30 @@ const spotReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_ALL_SPOTS:
-            newState = {...state};
+            newState = {allSpots: {}, oneSpot: {}};
             action.spots.Spots.forEach((spot) => {
                 newState.allSpots[spot.id] = spot;
             });
             return newState;
         case LOAD_ONE_SPOT:
-            newState = {...state};
-            newState.spot = action.spot;
+            newState = {allSpots: {}, oneSpot: {}};
+            newState.oneSpot = action.spot;
             return newState;
         case ADD_ONE_SPOT:
-            newState = {...state};
+            newState = {allSpots: {}, oneSpot: {}};
             return {
-
+                newState
             };
         case EDIT_ONE_SPOT:
+            newState = {allSpots: {}, oneSpot: {}};
             return {
-
+                newState
             };
         case DELETE_ONE_SPOT:
-            newState = {...state};
+            newState = {allSpots: {}, oneSpot: {}};
             delete newState[action.spotId]
             return {
-
+                newState
             };
         default:
             return state;
