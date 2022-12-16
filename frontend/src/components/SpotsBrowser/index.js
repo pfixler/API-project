@@ -11,11 +11,11 @@ import SpotDetails from "../SpotDetails";
 const SpotsBrowser = () => {
     const dispatch = useDispatch();
     const spotsObj = useSelector(state=>state.spot.allSpots);
-    console.log('obj:', spotsObj);
+    // console.log('obj:', spotsObj);
     const spots = Object.values(spotsObj);
-    console.log('obj:', spots);
+    // console.log('obj:', spots);
 
-    let paul;
+    // let paul;
 
     // const openInNewTab = (url) => {
     //     window.open(url, '_blank', 'noopener,noreferrer');

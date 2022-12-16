@@ -6,11 +6,11 @@ import { getSpotDetails } from '../../store/spot';
 
 const SpotDetails = () => {
     const {spotId} = useParams();
-    console.log(spotId);
+    // console.log(spotId);
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spot.oneSpot);
-    console.log(spot);
-    console.log('hi');
+    // console.log(spot);
+    // console.log('hi');
 
 
     useEffect(() => {

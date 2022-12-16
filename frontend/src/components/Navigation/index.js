@@ -1,11 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import CreateNewSpot from '../CreateNewSpot';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -38,9 +39,15 @@ function Navigation({ isLoaded }){
         <li>
           <NavLink exact to="/">
             <div className='airbnb-logo'>
-              {/* home */}
-              <img className='airbnb-logo' src="https://www.logosurfer.com/wp-content/uploads/2018/03/airbnb-logo_1.png"  alt="Airbnb Logo" />
+              home
+              {/* <img src="https://www.logosurfer.com/wp-content/uploads/2018/03/airbnb-logo_1.png"  alt="Airbnb Logo" /> */}
             </div>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to={`/spots`} target="_blank">
+
+              create new spot
           </NavLink>
         </li>
         {/* <button onclick="myFunction()" class="dropbtn">Dropdown</button>
@@ -49,6 +56,9 @@ function Navigation({ isLoaded }){
           {isLoaded && sessionLinks}
         {/* </div> */}
       </ul>
+      <Route path='/spots'>
+          <CreateNewSpot />
+      </Route>
       {/* {icons} */}
       {/* {cards} */}
       {/* {footer} */}
