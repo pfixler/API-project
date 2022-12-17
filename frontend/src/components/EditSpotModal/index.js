@@ -14,9 +14,10 @@ const EditSpotModal = ({spot}) => {
     const { closeModal } = useModal();
     // const {spotId} = useParams();
     // const spot = useSelector(state => state.spot.oneSpot[spotId]);
-    console.log(spot);
+    // console.log(spot);
 
     const [address, setAddress] = useState(spot.address);
+    console.log(address);
     const [city, setCity] = useState(spot.city);
     const [state, setState] = useState(spot.state);
     const [country, setCountry] = useState(spot.country);
@@ -24,7 +25,9 @@ const EditSpotModal = ({spot}) => {
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot.price);
 
-    const updateAddress = (e) => setAddress(e.target.value);
+    const updateAddress = (e) => {
+        console.log(e.target.value);
+        setAddress(e.target.value)};
     const updateCity = (e) => setCity(e.target.value);
     const updateState = (e) => setState(e.target.value);
     const updateCountry = (e) => setCountry(e.target.value);
@@ -37,20 +40,21 @@ const EditSpotModal = ({spot}) => {
 
         e.preventDefault();
 
-        // const updatedSpot = {
-        //     address,
-        //     city,
-        //     state,
-        //     country,
-        //     name,
-        //     description,
-        //     price,
-        //     lat:100,
-        //     lng:100
-        // };
+        const updatedSpot = {
+            id: spot.id,
+            address,
+            city,
+            state,
+            country,
+            name,
+            description,
+            price,
+            lat:100,
+            lng:100
+        };
         // console.log(updatedSpot);
 
-        let editedSpot = await dispatch(editSpot(spot));
+        let editedSpot = await dispatch(editSpot(updatedSpot));
         console.log(editedSpot);
         // console.log('hello');
         if (editedSpot) {
