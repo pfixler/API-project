@@ -69,7 +69,8 @@ export const createSpot = (newSpot) => async (dispatch) => {
 };
 
 export const editSpot = (editedSpot) => async (dispatch) => {
-    const response = await fetch(`/api/spots/${editedSpot.id}`, {
+    console.log(editedSpot);
+    const response = await csrfFetch(`/api/spots/${editedSpot.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editedSpot),
@@ -105,27 +106,24 @@ const spotReducer = (state = initialState, action) => {
             });
             return newState;
         case LOAD_ONE_SPOT:
-            newState = {allSpots: {}, oneSpot: {}};
+            newState = {...state, oneSpot: {}};
             newState.oneSpot = action.spot;
             return newState;
         case ADD_ONE_SPOT:
             newState = {...state};
-            console.log(action.spot);
+            // console.log(action.spot);
             newState.allSpots[action.spot.id] = action.spot;
-            console.log(newState);
+            // console.log(newState);
             return newState;
         case EDIT_ONE_SPOT:
-            newState = {allSpots: {}, oneSpot: {}};
-
-            return {
-                newState
-            };
+            newState = {...state};
+            newState.allSpots[action.spot.id] = action.spot;
+            console.log(action.spot);
+            return newState;
         case DELETE_ONE_SPOT:
-            newState = {allSpots: {}, oneSpot: {}};
-            delete newState[action.spotId]
-            return {
-                newState
-            };
+            newState = {...state};
+            delete newState.allSpots[action.spotId];
+            return newState;
         default:
             return state;
     }

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetails } from '../../store/spot';
+import OpenModalButton from '../OpenModalButton';
+import EditSpotModal from '../EditSpotModal';
 
 
 const SpotDetails = () => {
@@ -18,7 +20,16 @@ const SpotDetails = () => {
       }, [dispatch, spotId]);
 
     return (
-            <h1>{spot.address}</h1>
+        <div>
+                <h1>{spot.address}</h1>
+                <div>
+                <OpenModalButton
+                    buttonText="Edit Spot"
+                    modalComponent={<EditSpotModal spot={spot}/>}
+                />
+                </div>
+
+            </div>
             // <h1>hello</h1>
         // <div>
         //     <div>
