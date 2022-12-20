@@ -2,18 +2,31 @@
     display:none
 }
 
+.header-box {
+    border-bottom: solid grey .5px;
+    border-top: solid grey .5px;
+    /* border-style: ; */
+    height: 80px;
+}
+
 
 .header {
     justify-content: space-between;
-    align-items: center;
     display: flex;
+    align-items: center;
+    /* vertical-align: middle; */
     height: 100%;
     position: relative;
-    width: 100%;
+    width: auto;
     z-index: 1;
+    /* margin-left: 40px;
+    margin-right: 40px; */
+    padding-inline: 40px;
 }
 
-.airbnb-logo {
+
+
+.home-link {
     outline: none;
     align-items: center;
     display: inline-flex;
@@ -22,3 +35,27 @@
     vertical-align: middle;
     z-index: 1;
 }
+
+.airbnb-logo-box {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    width: 125px;
+}
+
+.fa-airbnb {
+    display: flex;
+    align-items: center;
+}
+
+
+.fa-airbnb::before {
+    font-size: 32px;
+}
+
+.logo-text {
+    font-size: 17px;
+}
+
+a:link { text-decoration: none; }

@@ -1,1 +1,18 @@
 /* TODO Add site wide styles */
+#body {
+    margin:0;
+}
+
+/* @media (min-width: 1128px) {
+    #root {
+        padding-inline: 40px;
+    }
+} */
+
+#root {
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 1.43;
+    color: #222;
+    background-color: #fff;
+}
