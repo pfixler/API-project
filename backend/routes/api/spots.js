@@ -672,8 +672,13 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 //create a spot
 router.post('/', requireAuth, async (req, res) => {
     const {user} = req;
+    // console.log('hello');
     const {address, city, state, country,
         lat, lng, name, description, price} =  req.body;
+        // console.log(req.body);
+        // console.log(lat);
+        // console.log('hi');
+
 
         let validLat;
         let validLng;
