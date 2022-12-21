@@ -6,7 +6,7 @@ import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
-import CreateNewSpot from '../CreateNewSpot';
+import CreateNewSpotModal from '../CreateNewSpotModal';
 
 
 function Navigation({ isLoaded }){
@@ -46,10 +46,14 @@ function Navigation({ isLoaded }){
           </NavLink>
         </div>
         <div className='create-spot-box'>
-          <NavLink className='create-spot-link' to={`/`} target="_blank">
+          {/* <NavLink className='create-spot-link' to={`/`} target="_blank">
 
               create new spot
-          </NavLink>
+          </NavLink> */}
+          <OpenModalButton
+                    buttonText="Create a Spot"
+                    modalComponent={<CreateNewSpotModal/>}
+                />
         </div>
         {/* <button onclick="myFunction()" class="dropbtn">Dropdown</button>
         <div id="myDropdown" class="header-dropdown-content"> */}
@@ -57,9 +61,9 @@ function Navigation({ isLoaded }){
           {isLoaded && sessionLinks}
         {/* </div> */}
       </div>
-      <Route path='/spots'>
+      {/* <Route path='/spots'>
           <CreateNewSpot />
-      </Route>
+      </Route> */}
       {/* {icons} */}
       {/* {cards} */}
       {/* {footer} */}

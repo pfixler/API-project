@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createSpot } from '../../store/spot';
+import { createSpot, getAllSpots } from '../../store/spot';
+import { useModal } from "../../context/Modal";
 // import spot from '../../../../backend/db/models/spot';
 
 
-const CreateNewSpot = () => {
+const CreateNewSpotModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { closeModal } = useModal();
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -49,13 +51,21 @@ const CreateNewSpot = () => {
         // console.log(newSpot);
 
         let createdSpot = await dispatch(createSpot(newSpot));
+        e.preventDefault();
         // console.log(createdSpot);
         // console.log('hello');
         if (createdSpot) {
+            closeModal();
           history.push('/');
+          dispatch(getAllSpots());
         //   hideForm();
-        }
-      };
+    }
+
+};
+
+
+
+
 
     const handleCancelClick = (e) => {
         e.preventDefault();
@@ -145,4 +155,4 @@ const CreateNewSpot = () => {
     );
 }
 
-export default CreateNewSpot;
+export default CreateNewSpotModal;
