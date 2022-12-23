@@ -55,9 +55,9 @@ const CreateNewSpotModal = () => {
         // console.log(createdSpot);
         // console.log('hello');
         if (createdSpot) {
+            dispatch(getAllSpots());
             closeModal();
-          history.push('/');
-          dispatch(getAllSpots());
+            history.push('/');
         //   hideForm();
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -7,32 +7,73 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
 import CreateNewSpotModal from '../CreateNewSpotModal';
+import { useState, useRef } from 'react';
 
 
 function Navigation({ isLoaded }){
+  const menuRef = useRef(null);
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <div>
+      <div className='yes-session-box'>
         <ProfileButton user={sessionUser} />
       </div>
     );
   } else {
     sessionLinks = (
-      <div>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
+      <div className='no-session-box'>
+        <div className='log-in-box'>
+
+          <OpenModalButton
+            // onClick={setMenu(false)}
+            buttonText="Log In"
+            modalComponent={<LoginFormModal />}
+            />
+        </div>
+        <div className='sign-up-box'>
+
+          <OpenModalButton
+            // onClick={setMenu(false)}
+            buttonText="Sign Up"
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
       </div>
     );
   }
+
+
+  const [menu, setMenu] = useState(false);
+
+  // const [buttonClose, setButtonClose] = useState(false);
+
+  const clickMenuButton = () => {
+    if (menu === false) {
+      // console.log('open')
+      setMenu(true);
+    }
+    if (menu === true) {
+      // console.log('false')
+      setMenu(false);
+    }
+    // if (buttonClose === false) {
+
+    // }
+    // setButtonClose(false);
+  }
+
+
+  const closeMenu = (e)=>{
+    if(menuRef.current && menu && !menuRef.current.contains(e.target)){
+      // console.log('close menu')
+      setMenu(false)
+      // setButtonClose(true)
+    }
+}
+
+  document.addEventListener('mousedown', closeMenu);
 
   return (
     <div className='header-box'>
@@ -40,25 +81,49 @@ function Navigation({ isLoaded }){
         <div className='home-box'>
           <NavLink className='home-link' exact to="/">
             <div className='airbnb-logo-box'>
-            <i class="fa-brands fa-airbnb" width="102" height="32"><div className='logo-text'>CloneBnB</div></i>
+              <i className="fa-brands fa-airbnb"><div className='logo-text'>CloneBnB</div></i>
               {/* <img className='airbnb-logo-image' src="https://www.logosurfer.com/wp-content/uploads/2018/03/airbnb-logo_1.png"  alt="Airbnb Logo" /> */}
             </div>
           </NavLink>
         </div>
         <div className='create-spot-box'>
-          {/* <NavLink className='create-spot-link' to={`/`} target="_blank">
+          <div className='create-spot-button'>
+            {/* <NavLink className='create-spot-link' to={`/`} target="_blank">
 
-              create new spot
-          </NavLink> */}
-          <OpenModalButton
-                    buttonText="Create a Spot"
-                    modalComponent={<CreateNewSpotModal/>}
-                />
+                create new spot
+            </NavLink> */}
+            <OpenModalButton
+
+                      buttonText="Create a Spot"
+                      modalComponent={<CreateNewSpotModal/>}
+                  />
+          </div>
         </div>
         {/* <button onclick="myFunction()" class="dropbtn">Dropdown</button>
         <div id="myDropdown" class="header-dropdown-content"> */}
+        <div className='menu-box'>
+          <div className='dropdown-menu-box'>
+            <button className='dropdown-menu-button' ref={menuRef} onClick={clickMenuButton}>
+              <div className='dashes'>
+                <i className="fa-solid fa-bars"></i>
+              </div>
+              <div className='profile-icon'>
+                <i className="fa-solid fa-circle-user"></i>
+              </div>
 
-          {isLoaded && sessionLinks}
+            </button>
+            {menu ? (
+              <div className='dropdown-box'>
+
+                <div className='dropdown-items' ref={menuRef} onClick={clickMenuButton}>
+
+                  {isLoaded && sessionLinks}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+        </div>
         {/* </div> */}
       </div>
       {/* <Route path='/spots'>

@@ -15,4 +15,9 @@
     line-height: 1.43;
     color: #222;
     background-color: #fff;
+
+}
+
+a:link {
+    text-decoration: none;
 }

@@ -32,21 +32,22 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  // const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
     <>
-      <button onClick={openMenu}>
+      {/* <button onClick={openMenu}>
         <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
-        <li>
-          <button onClick={logout}>Log Out</button>
-        </li>
-      </ul>
+      </button> */}
+      <div className="user-informaton"
+      // className={ulClassName} ref={ulRef}
+      >
+        <p>{user.username}</p>
+        <p>{user.firstName} hello {user.lastName}</p>
+        <p>{user.email}</p>
+      </div>
+      <section></section>
+        <button onClick={logout}>Log Out</button>
     </>
   );
 }
