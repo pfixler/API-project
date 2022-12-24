@@ -1,1 +1,110 @@
+.main-content {
+    box-sizing: border-box;
+}
 
+.cards-holder {
+    margin-top: 16px;
+    padding-inline: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 24px;
+    row-gap: 40px;
+}
+
+.single-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-box {
+    margin-bottom: 12px;
+
+}
+
+.card-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.information-box {
+    display: grid;
+    /* grid-template-columns: 4fr 1fr; */
+    column-gap: 8px;
+    row-gap: 2px;
+    font-size: 15px;
+    line-height: 19px;
+    /* grid-template-columns: 6fr 1fr; */
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-auto-rows: minmax(0, 1fr);
+    grid-auto-flow: row;
+    /* position: relative; */
+}
+
+
+.location {
+    color: #222222;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.abbreviated-description {
+    color: #717171;
+    grid-column: 1/-1;
+    /* grid-row: 2; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 20%;
+}
+
+.abbreviated-description span {
+}
+
+.price-box {
+    display: flex;
+    align-items: top;
+    flex-flow: row wrap;
+    margin-top: 6px;
+    color: #222222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    grid-column: 1/-1;
+    /* grid-row: 3; */
+    /* overflow: clip; */
+}
+
+.price-text {
+    font-weight: 600;
+}
+
+.night-text {
+    font-weight: 400;
+}
+
+.rating-box {
+    display: flex;
+    align-items: top;
+    /* grid-column: -1/-2;
+    grid-row: 1; */
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rating-icon {
+    color: #222222;
+}
+
+.rating-number {
+    color: #222222;
+}

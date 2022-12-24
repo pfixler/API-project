@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getAllSpots } from "../../store/spot";
 import { NavLink, Route } from "react-router-dom";
 import SpotDetails from "../SpotDetails";
+import "./SpotsBrowser.css"
 
 
 
@@ -30,24 +31,55 @@ const SpotsBrowser = () => {
     }
 
       return (
-        <div className="cards-holder">
-            <h1>Spots list</h1>
-            <ul className="single-card">
-                {spots.map(({id, name, previewImage, address}) => (
-                    // <li key={spot.id}>{spot.address}</li>
-                    <li key={id}>
-                        <img
-                            src={previewImage}
-                            alt={name}
-                            />
-                        <NavLink to={`/spots/${id}`} target="_blank">{address}</NavLink>
-                    </li>
-                    ))}
-            </ul>
-            <Route path='/spots/:spotId'>
-                <SpotDetails />
-            </Route>
-        </div>
+        <main className="main-content">
+            <div className="cards-holder">
+                    {spots.map(({id, name, previewImage, address, city, state, description, price, avgRating}) => (
+                        // <li key={spot.id}>{spot.address}</li>
+                        <div className="single-card" key={id}>
+                            <NavLink to={`/spots/${id}`} target="_blank">
+                            <div className="card-image-box">
+                                <img
+                                    className="card-image"
+                                    src='https://picsum.photos/id/0/367/267'
+                                    // src={previewImage}
+                                    alt={name}
+                                    />
+                            </div>
+                            <div className="information-box">
+                                <div className="location">
+                                    {city}, {state}
+                                </div>
+                                <div className="abbreviated-description">
+                                    <span>
+                                        {description}
+                                    </span>
+                                </div>
+                                <div className="price-box">
+                                    <span className="price-text">
+                                        ${price}
+                                    </span>
+                                    &nbsp;
+                                    <span className="night-text">
+                                        night
+                                    </span>
+                                </div>
+                                <div className="rating-box">
+                                    <span className="rating-icon">
+                                        <i className="fa-solid fa-star"></i>
+                                    </span>
+                                    <span className="rating-number">
+                                        {avgRating}
+                                    </span>
+                                </div>
+                            </div>
+                            </NavLink>
+                        </div>
+                        ))}
+                </div>
+                <Route path='/spots/:spotId'>
+                    <SpotDetails />
+                </Route>
+        </main>
       );
 };
 

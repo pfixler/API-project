@@ -6,6 +6,9 @@
     border-bottom: solid grey .5px;
     border-top: solid grey .5px;
     height: 80px;
+    position: sticky;
+    z-index: 10;
+    box-sizing: border-box;
 }
 
 
