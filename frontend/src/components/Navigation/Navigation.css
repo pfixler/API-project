@@ -7,8 +7,10 @@
     border-top: solid grey .5px;
     height: 80px;
     position: sticky;
+    top: 0;
     z-index: 2;
     box-sizing: border-box;
+    background-color: #FFF;
 }
 
 
