@@ -31,7 +31,7 @@ const SpotsBrowser = () => {
     }
 
       return (
-        <main className="main-content">
+        <div className="main-content">
             <div className="cards-holder">
                     {spots.map(({id, name, previewImage, address, city, state, description, price, avgRating}) => (
                         // <li key={spot.id}>{spot.address}</li>
@@ -79,7 +79,7 @@ const SpotsBrowser = () => {
                 <Route path='/spots/:spotId'>
                     <SpotDetails />
                 </Route>
-        </main>
+        </div>
       );
 };
 
