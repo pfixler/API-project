@@ -12,6 +12,7 @@ import { useState, useRef } from 'react';
 
 function Navigation({ isLoaded }){
   const menuRef = useRef(null);
+  const buttonRef = useRef(null)
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
@@ -45,18 +46,18 @@ function Navigation({ isLoaded }){
   }
 
 
-  const [menu, setMenu] = useState(false);
+  const [menuState, setMenuState] = useState(false);
 
   // const [buttonClose, setButtonClose] = useState(false);
 
   const clickMenuButton = () => {
-    if (menu === false) {
+    if (menuState === false) {
       // console.log('open')
-      setMenu(true);
+      setMenuState(true);
     }
-    if (menu === true) {
+    if (menuState === true) {
       // console.log('false')
-      setMenu(false);
+      setMenuState(false);
     }
     // if (buttonClose === false) {
 
@@ -66,9 +67,10 @@ function Navigation({ isLoaded }){
 
 
   const closeMenu = (e)=>{
-    if(menuRef.current && menu && !menuRef.current.contains(e.target)){
+    if(menuRef.current && menuState && !menuRef.current.contains(e.target) && buttonRef.current && menuState && !buttonRef.current.contains(e.target)){
+      // debugger
       // console.log('close menu')
-      setMenu(false)
+      setMenuState(false)
       // setButtonClose(true)
     }
 }
@@ -103,7 +105,7 @@ function Navigation({ isLoaded }){
         <div id="myDropdown" class="header-dropdown-content"> */}
         <div className='menu-box'>
           <div className='dropdown-menu-box'>
-            <button className='dropdown-menu-button' ref={menuRef} onClick={clickMenuButton}>
+            <button className='dropdown-menu-button' ref={buttonRef} onClick={clickMenuButton}>
               <div className='dashes'>
                 <i className="fa-solid fa-bars"></i>
               </div>
@@ -112,7 +114,7 @@ function Navigation({ isLoaded }){
               </div>
 
             </button>
-            {menu ? (
+            {menuState ? (
               <div className='dropdown-box'>
 
                 <div className='dropdown-items' ref={menuRef} onClick={clickMenuButton}>
