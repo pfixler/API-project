@@ -30,69 +30,107 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form>
-    </>
+      <div className="signup-modal-box">
+          <div className="signup-modal-header">Sign Up</div>
+          <div className="signup-modal-form">
+            <div className="form-information">
+              <form onSubmit={handleSubmit}>
+                <ul>
+                  {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <div className="input-box" id="email-input-box">
+                  <div className="input-field" id="email-input-field">
+                    <label className="input-label">
+                      <input
+                        className="input-data"
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div className="input-box" id="username-input-box">
+                  <div className="input-field" id="username-input-field">
+                    <label className="input-label">
+                      <input
+                        className="input-data"
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div className="input-box" id="name-input-box">
+                  <div className="secondary-input-box" id="first-name-input-box">
+                    <div className="input-field" id="first-name-input-field">
+                      <label className="input-label">
+                        <input
+                          className="input-data"
+                          type="text"
+                          placeholder="First Name"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          required
+                        />
+                      </label>
+                      </div>
+                    </div>
+                  <div className="secondary-input-box" id="last-name-input-box">
+                    <div className="input-field" id="last-name-input-field">
+                      <label className="input-label">
+                        <input
+                          className="input-data"
+                          type="text"
+                          placeholder="Last Name"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          required
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="input-box" id="passwords-input-box">
+                  <div className="secondary-input-box" id="password-input-box">
+                    <div className="input-field" id="password-input-field">
+                      <label className="input-label">
+                        <input
+                          className="input-data"
+                          type="password"
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="secondary-input-box" id="confirm-password-input-box">
+                    <div className="input-field" id="confirm-password-input-field">
+                      <label className="input-label">
+                        <input
+                          className="input-data"
+                          type="password"
+                          placeholder="Confirm Password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit">Sign Up</button>
+              </form>
+            </div>
+          </div>
+      </div>
   );
 }
 

@@ -1,0 +1,70 @@
+div {
+    box-sizing: border-box;
+}
+
+.signup-modal-box {
+    /* border-radius: 12px; */
+}
+
+.signup-modal-header {
+    display: flex;
+    align-items: center;
+    padding-right: 24px;
+    padding-left: 24px;
+    justify-content: center;
+    border-bottom: 1px solid rgb(235, 235, 235);
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 800;
+    height: 63px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.signup-modal-form {
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.input-box {
+    border-radius: 8px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.input-field {
+    cursor: text;
+    min-height: 56px;
+    width: auto;
+    margin: 0px;
+    border: none transparent;
+    color: rgb(34, 34, 34);
+    background-color: transparent;
+    border-radius: 0px;
+    box-shadow: none;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.input-label {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.input-data {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #717171;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    box-sizing: border-box;
+    width: 100%;
+    height: 56px;
+}
