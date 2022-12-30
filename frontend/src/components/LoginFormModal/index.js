@@ -26,35 +26,57 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
-      </form>
-    </>
+    <div className="login-modal-box">
+      <div className="login-modal-header">Log In</div>
+      <div className="login-modal-form">
+        <div className="form-information">
+          <form onSubmit={handleSubmit}>
+            <ul>
+              {errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+            </ul>
+            <div className="input-box" id="credential-input-box">
+              <div className="input-field" id="credential-input-field">
+                <label className="input-label">
+                  <input
+                    className="input-data"
+                    type="text"
+                    placeholder="Username or Email"
+                    value={credential}
+                    onChange={(e) => setCredential(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <div className="single-error-information">
+                Please input a valid username or email.
+              </div>
+            </div>
+            <div className="input-box" id="password-input-box">
+              <div className="input field" id="credential-input-field">
+                <label className="input-label">
+                  <input
+                    className="input-data"
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <div className="single-error-information">
+                Please input a valid password.
+              </div>
+            </div>
+            <div className="login-button-box">
+              <button className="login-button" type="submit">Log In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

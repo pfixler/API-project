@@ -51,6 +51,9 @@ function SignupFormModal() {
                       />
                     </label>
                   </div>
+                  <div className="single-error-information">
+                    We'll email you trip confirmations and receipts.
+                  </div>
                 </div>
                 <div className="input-box" id="username-input-box">
                   <div className="input-field" id="username-input-field">
@@ -64,6 +67,9 @@ function SignupFormModal() {
                         required
                       />
                     </label>
+                  </div>
+                  <div className="single-error-information">
+                    Please use a unique username.
                   </div>
                 </div>
                 <div className="input-box" id="name-input-box">
@@ -95,6 +101,9 @@ function SignupFormModal() {
                       </label>
                     </div>
                   </div>
+                  <div className="single-error-information">
+                    Make sure it matches the name on your government ID.
+                  </div>
                 </div>
                 <div className="input-box" id="passwords-input-box">
                   <div className="secondary-input-box" id="password-input-box">
@@ -125,8 +134,13 @@ function SignupFormModal() {
                       </label>
                     </div>
                   </div>
+                  <div className="single-error-information">
+                    Make sure your passwords match.
+                  </div>
                 </div>
-                <button type="submit">Sign Up</button>
+                <div className="signup-button-box">
+                  <button className="signup-button" type="submit">Sign Up</button>
+                </div>
               </form>
             </div>
           </div>
