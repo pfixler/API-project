@@ -55,10 +55,10 @@ div {
     font-weight: 400;
 }
 
-.input-label {
+/* .input-label {
     position: relative;
     box-sizing: border-box;
-}
+} */
 
 .input-data {
     display: flex;
