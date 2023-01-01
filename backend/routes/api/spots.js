@@ -939,7 +939,7 @@ else {
         let avg = totalStars/totalReviews;
         spot.avgRating = avg;
         if (!avg) {
-            spot.avgRating = 'no ratings for this spot';
+            spot.avgRating = 'New';
 
         }
         delete spot.Reviews;
