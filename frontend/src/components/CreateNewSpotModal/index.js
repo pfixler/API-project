@@ -12,6 +12,7 @@ const CreateNewSpotModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
+    const [errors, setErrors] = useState([]);
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -37,6 +38,7 @@ const CreateNewSpotModal = () => {
     const handleSubmit = async (e) => {
         //make this a modal
         e.preventDefault();
+        setErrors([]);
 
         const newSpot = {
             address,
@@ -51,16 +53,33 @@ const CreateNewSpotModal = () => {
         };
         // console.log(newSpot);
 
-        let createdSpot = await dispatch(createSpot(newSpot));
-        e.preventDefault();
-        // console.log(createdSpot);
-        // console.log('hello');
-        if (createdSpot) {
-            dispatch(getAllSpots());
-            closeModal();
-            history.push('/');
-        //   hideForm();
-    }
+        return dispatch(createSpot(newSpot))
+            .then(dispatch(getAllSpots()))
+            .then(closeModal)
+            .then(history.push('/'))
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+
+        // let createdSpot = await dispatch(createSpot(newSpot));
+        // e.preventDefault();
+        // // console.log(createdSpot);
+        // // console.log('hello');
+        // if (createdSpot) {
+        //     dispatch(getAllSpots());
+        //     closeModal();
+        //     history.push('/');
+        // //   hideForm();
+        // }
+        // else {
+        //     async (res) => {
+        //         const data = await res.json();
+        //         if (data && data.errors) setErrors(data.errors);
+        //       }
+        // }
 
 };
 
@@ -81,137 +100,139 @@ const CreateNewSpotModal = () => {
             <div className='create-spot-modal-header'>Create A Spot</div>
             <div className='create-spot-modal-form'>
                 <div className='form-information'>
-                    <form
-                        className='create-spot-form'
-                        onSubmit={handleSubmit}
-                        >
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="text"
-                                        placeholder="Address"
-                                        required
-                                        value={address}
-                                        onChange={updateAddress}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                    <form className='create-spot-form' onSubmit={handleSubmit}>
+                        <ul>
+                            {errors.map((error, idx) => (
+                                <li key={idx}>{error}</li>
+                            ))}
+                        </ul>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="Address"
+                                    required
+                                    value={address}
+                                    onChange={updateAddress}
+                                />
                             </div>
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="text"
-                                        placeholder="City"
-                                        required
-                                        value={city}
-                                        onChange={updateCity}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
                             </div>
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="text"
-                                        placeholder="State"
-                                        required
-                                        value={state}
-                                        onChange={updateState}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="City"
+                                    required
+                                    value={city}
+                                    onChange={updateCity}
+                                />
                             </div>
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="text"
-                                        placeholder="Country"
-                                        required
-                                        value={country}
-                                        onChange={updateCountry}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
                             </div>
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="text"
-                                        placeholder="Name"
-                                        required
-                                        value={name}
-                                        onChange={updateName}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="State"
+                                    required
+                                    value={state}
+                                    onChange={updateState}
+                                />
                             </div>
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="text"
-                                        placeholder="Description"
-                                        required
-                                        value={description}
-                                        onChange={updateDescription}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
                             </div>
-                            <div className='input-box'>
-                                <div className='input-field'>
-                                    <input
-                                        className="input-data"
-                                        type="number"
-                                        placeholder="Price"
-                                        required
-                                        value={price}
-                                        onChange={updatePrice}
-                                    />
-                                </div>
-                                <div className="single-error-information">
-                                    Make sure your passwords match.
-                                </div>
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="Country"
+                                    required
+                                    value={country}
+                                    onChange={updateCountry}
+                                />
                             </div>
-                            {/* <input
-                                type="number"
-                                placeholder="Lat"
-                                required
-                                value={lat}
-                                onChange={updateLat}
-                            />
-                            <input
-                                type="number"
-                                placeholder="Lng"
-                                required
-                                value={lng}
-                                onChange={updateLng}
-                            /> */}
-                            <div className='submit-spot-button-box'>
-                                <button className='submit-spot-button' type='submit'>Create New Spot</button>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
                             </div>
-                        {/* <button
-                        type='button'
-                        onClick={handleCancelClick}
-                        >
-                            Cancel</button> */}
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="Name"
+                                    required
+                                    value={name}
+                                    onChange={updateName}
+                                />
+                            </div>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
+                            </div>
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="Description"
+                                    required
+                                    value={description}
+                                    onChange={updateDescription}
+                                />
+                            </div>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
+                            </div>
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="number"
+                                    placeholder="Price"
+                                    required
+                                    value={price}
+                                    onChange={updatePrice}
+                                />
+                            </div>
+                            <div className="single-error-information">
+                                Make sure your passwords match.
+                            </div>
+                        </div>
+                        {/* <input
+                            type="number"
+                            placeholder="Lat"
+                            required
+                            value={lat}
+                            onChange={updateLat}
+                        />
+                        <input
+                            type="number"
+                            placeholder="Lng"
+                            required
+                            value={lng}
+                            onChange={updateLng}
+                        /> */}
+                        <div className='submit-spot-button-box'>
+                            <button className='submit-spot-button' type='submit'>Create New Spot</button>
+                        </div>
+                    {/* <button
+                    type='button'
+                    onClick={handleCancelClick}
+                    >
+                        Cancel</button> */}
                     </form>
                 </div>
             </div>

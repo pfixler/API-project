@@ -60,7 +60,7 @@ const requireAuth = function (req, _res, next) {
 
     const err = new Error('Unauthorized');
     err.title = 'Unauthorized';
-    err.errors = ['Unauthorized'];
+    err.errors = ['User must be logged in'];
     err.status = 401;
     return next(err);
   }
