@@ -40,7 +40,7 @@ const SpotsBrowser = () => {
                             <div className="card-image-box">
                                 <img
                                     className="card-image"
-                                    src='https://picsum.photos/id/0/367/267'
+                                    src={previewImage}
                                     // src={previewImage}
                                     alt={name}
                                     />
