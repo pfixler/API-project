@@ -21,6 +21,7 @@ const CreateNewSpotModal = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
+    const [url, setUrl] = useState('https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930');
     // const [lat, setLat] = useState(0);
     // const [lng, setLng] = useState(0);
 
@@ -31,6 +32,7 @@ const CreateNewSpotModal = () => {
     const updateName = (e) => setName(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
+    const updateUrl = (e) => setUrl(e.target.value);
     // const updateLat = (e) => setLat(e.target.value);
     // const updateLng = (e) => setLng(e.target.value);
 
@@ -53,8 +55,13 @@ const CreateNewSpotModal = () => {
         };
         // console.log(newSpot);
 
-        return dispatch(createSpot(newSpot))
-            .then(dispatch(getAllSpots()))
+        const newImage = {
+            url,
+            preview:true,
+        }
+
+        return dispatch(createSpot(newSpot, newImage))
+            // .then(dispatch(getAllSpots()))
             .then(closeModal)
             .then(history.push('/'))
             .catch(
@@ -209,6 +216,21 @@ const CreateNewSpotModal = () => {
                             </div>
                             <div className="single-error-information">
                                 Make sure your passwords match.
+                            </div>
+                        </div>
+                        <div className='input-box'>
+                            <div className='input-field'>
+                                <input
+                                    className="input-data"
+                                    type="text"
+                                    placeholder="Image Url"
+                                    required
+                                    value={url}
+                                    onChange={updateUrl}
+                                />
+                            </div>
+                            <div className="single-error-information">
+                                Default image URL is provided.
                             </div>
                         </div>
                         {/* <input
