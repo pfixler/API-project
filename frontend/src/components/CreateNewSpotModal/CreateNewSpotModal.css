@@ -2,12 +2,12 @@ div {
     box-sizing: border-box;
 }
 
-.signup-modal-box {
+.create-spot-modal-box {
     box-sizing: border-box;
     /* border-radius: 12px; */
 }
 
-.signup-modal-header {
+.create-spot-modal-header {
     display: flex;
     align-items: center;
     padding-right: 24px;
@@ -23,7 +23,7 @@ div {
     text-overflow: ellipsis;
 }
 
-.signup-modal-form {
+.create-spot-modal-form {
     /* flex: 1 1 auto; */
     padding: 24px;
     max-width: calc(100vw - 2rem);
@@ -55,10 +55,10 @@ div {
     font-weight: 400;
 }
 
-/* .input-label {
+.input-label {
     position: relative;
     box-sizing: border-box;
-} */
+}
 
 .input-data {
     display: flex;
@@ -92,12 +92,12 @@ div {
     font-weight: 400;
 }
 
-.signup-button-box {
+.submit-spot-button-box {
     margin-top: 24px;
     margin-bottom: 24px;
 }
 
-.signup-button {
+.submit-spot-button {
     cursor: pointer;
     display: inline-block;
     margin: 0px;

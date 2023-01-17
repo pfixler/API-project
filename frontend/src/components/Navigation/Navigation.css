@@ -1,3 +1,226 @@
-.hidden {
+/* .hidden {
     display:none
+} */
+
+.header-box {
+    border-bottom: solid grey .5px;
+    border-top: solid grey .5px;
+    height: 80px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-sizing: border-box;
+    background-color: #FFF;
+}
+
+
+.header {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    /* height: 100%; */
+    position: relative;
+    /* width: auto; */
+    box-sizing: border-box;
+    padding-inline: 40px;
+}
+
+
+
+.home-link {
+    outline: none;
+    align-items: center;
+    display: inline-flex;
+    height: 80px;
+    position: relative;
+    vertical-align: middle;
+    z-index: 1;
+}
+
+.airbnb-logo-box {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    width: 125px;
+}
+
+.fa-airbnb {
+    display: flex;
+    align-items: center;
+}
+
+
+.fa-airbnb::before {
+    font-size: 32px;
+    color: #FF5A5F;
+}
+
+.logo-text {
+    font-size: 17px;
+    color: #FF5A5F;
+}
+
+/* a:link {
+    text-decoration: none;
+} */
+
+.create-spot-box {
+    display: flex;
+}
+
+.create-spot-button {
+    height: 32px;
+    width: 125px;
+}
+
+.create-spot-button button {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+    color: white;
+    border-radius: 8px;
+    /* outline: none; */
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    height: 32px;
+    width: 125px;
+    cursor: pointer;
+}
+
+.menu-box {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu-box {
+    box-sizing: border-box;
+    height: 42px;
+    width: 77px;
+}
+
+
+.dropdown-menu-button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    cursor: pointer;
+    margin: 0;
+    text-align: inherit;
+    background-color: #FFFF;
+    border: 1px solid #DDDD;
+    border-radius: 21px;
+    /* transition: box-shadow 0.2s ease; */
+    padding: 5px 5px 5px 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.18);
+    height: 100%;
+    width: 100%;
+}
+
+.dashes {
+    text-align: center;
+    height: 16px;
+    width: 16px;
+}
+
+.fa-bars {
+    font-size: 16px;
+}
+
+.profile-icon {
+    margin-left: 12px;
+    color: #717171;
+    height: 30px;
+    position: relative;
+    width: 30px;
+    /* z-index: 1; */
+}
+
+.fa-circle-user::before {
+    font-size: 30px;
+}
+
+.dropdown-box {
+    position: fixed;
+    margin-top: 8px;
+    z-index: 1;
+    width: 240px;
+    right: 0;
+    margin-right: 40px;
+}
+
+.dropdown-items {
+    display: block;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgb(0 0 0 / 12%);
+    padding: 8px 0;
+}
+
+/* .dropdown-items div {
+    display: block;
+} */
+
+.no-session-box button:hover {
+    background-color: #f5f5f5;
+}
+
+.log-in-box button{
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    line-height: 18px;
+}
+
+.sign-up-box button{
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.yes-session-box button:hover {
+    background-color: #f5f5f5;
+}
+
+.yes-session-box button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.yes-session-box div {
+    display: block;
+    align-items: center;
+    padding: 12px 16px;
+    width: auto;
+    text-align: left;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.yes-session-box section {
+    background-color: #DDDDDD;
+    margin: 8px 0;
+    height: 1px;
 }

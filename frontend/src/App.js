@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
+import * as spotActions from "./store/spot";
 import Navigation from "./components/Navigation";
+import SpotsBrowser from "./components/SpotsBrowser";
+import SpotDetails from "./components/SpotDetails";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    // dispatch(spotActions.getAllSpots());
   }, [dispatch]);
 
   return (
@@ -16,6 +20,15 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+            <SpotsBrowser />
+          </Route>
+          <Route exact path='/spots/:spotId'>
+            <SpotDetails />
+          </Route>
+          {/* <Route exact path='/spots'>
+                <SpotDetails />
+            </Route> */}
         </Switch>
       )}
     </>

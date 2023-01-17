@@ -12,23 +12,23 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "image.url",
-        preview: false
+        url: 'https://cdn.pixabay.com/photo/2016/06/24/10/47/house-1477041_1280.jpg',
+        preview: true
       },
       {
         spotId: 2,
-        url: "image.url",
-        preview: false
+        url: 'https://cdn.pixabay.com/photo/2014/11/21/17/17/house-540796_1280.jpg',
+        preview: true
       },
       {
         spotId: 3,
-        url: "image.url",
-        preview: false
+        url: 'https://cdn.pixabay.com/photo/2017/03/30/04/14/house-2187170_1280.jpg',
+        preview: true
       },
       {
         spotId: 4,
-        url: "image.url",
-        preview: false
+        url: 'https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187_1280.jpg',
+        preview: true
       },
     ])
   },
