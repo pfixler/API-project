@@ -13,6 +13,13 @@ const CreateNewSpotModal = () => {
     const history = useHistory();
     const { closeModal } = useModal();
     const [errors, setErrors] = useState([]);
+    // const [closed, setClosed] = useState(false)
+
+    // useEffect(() => {
+    //     // dispatch(getAllSpots());
+    //     history.push('/');
+    //     console.log('use effect in create spot modal')
+    // }, [closeModal])
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -47,11 +54,11 @@ const CreateNewSpotModal = () => {
             city,
             state,
             country,
+            lat:100,
+            lng:100,
             name,
             description,
-            price,
-            lat:100,
-            lng:100
+            price
         };
         // console.log(newSpot);
 
@@ -63,7 +70,7 @@ const CreateNewSpotModal = () => {
         return dispatch(createSpot(newSpot, newImage))
             // .then(dispatch(getAllSpots()))
             .then(closeModal)
-            .then(history.push('/'))
+            // .then(history.push('/'))
             .catch(
                 async (res) => {
                     const data = await res.json();

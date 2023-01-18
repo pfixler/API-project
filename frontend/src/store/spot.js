@@ -69,8 +69,11 @@ export const createSpot = (newSpot, newImage) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newImage)
         })
-        dispatch(getAllSpots());
-        dispatch(addOne(spot));
+        await dispatch(addOne(spot));
+        // console.log('between 2')
+        //remove and change add a spot in reducer
+        //make sure added object looks the same as other objects
+        await dispatch(getAllSpots());
         return spot;
     }
 };
@@ -116,6 +119,7 @@ const spotReducer = (state = initialState, action) => {
             return newState;
         case LOAD_ONE_SPOT:
             newState = {...state, oneSpot: {}};
+            console.log('inside load one spot')
             newState.oneSpot = action.spot;
             return newState;
         case ADD_ONE_SPOT:

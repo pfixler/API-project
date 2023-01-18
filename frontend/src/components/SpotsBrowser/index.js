@@ -24,12 +24,14 @@ const SpotsBrowser = () => {
 
     useEffect(() => {
         dispatch(getAllSpots());
+        // console.log('on mount?');
       }, []);
 
 
     if (!spots) {
         return null;
     }
+    //make this an array and check length
 
       return (
         <div className="main-content">
