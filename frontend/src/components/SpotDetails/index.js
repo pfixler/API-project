@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetails, deleteSpot } from '../../store/spot';
+import { getSpotReviews } from '../../store/review';
 import OpenModalButton from '../OpenModalButton';
 import EditSpotModal from '../EditSpotModal';
 import "./SpotDetails.css"
@@ -14,8 +15,9 @@ const SpotDetails = () => {
 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spot.oneSpot);
-
-    // console.log('hi');
+    const spotReviewsObj = useSelector(state => state.review.spotReviews);
+    const spotReviews = Object.values(spotReviewsObj);
+    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     const deleteSpotFunction = async (e) => {
         // console.log(spot);
@@ -26,13 +28,19 @@ const SpotDetails = () => {
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId));
-      }, [dispatch, spotId]);
+        dispatch(getSpotReviews(spotId));
+    }, [dispatch, spotId]);
+
 
     if (!spot) {
         return null;
     }
 
     if (!spot.SpotImages) {
+        return null;
+    }
+
+    if (!spotReviews) {
         return null;
     }
 
@@ -182,9 +190,17 @@ const SpotDetails = () => {
                         </span>
                     </div>
                     <div className='spot-details-reviews'>
-                        <div className='single-spot-review'>
-                            
-                        </div>
+                        {spotReviews.map(({id, review, updatedAt, User}) => (
+                            <div className='single-spot-review' key={id}>
+                                <div className='review-details'>
+                                    <div className='reviewer-name'>{User.firstName}</div>
+                                    <div className='review-date'>{month[Number(spotReviews[0].updatedAt.split('-')[1])]}&nbsp;{updatedAt.split('-')[0]}</div>
+                                </div>
+                                <div className='review-text'>
+                                    {review}
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

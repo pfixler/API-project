@@ -106,7 +106,7 @@ export const deleteSpot = (deleteSpot) => async (dispatch) => {
     }
 };
 
-const initialState = { allSpots: {}, oneSpot: {}};
+const initialState = { allSpots: {}, oneSpot: {} };
 
 const spotReducer = (state = initialState, action) => {
     let newState;

@@ -391,9 +391,48 @@ span {
     font-size: 22px;
     line-height: 26px;
     justify-content: flex-start;
+    margin-bottom: 32px;
 }
 
 #review-rating-icon {
     font-size: 16px;
     margin-right: 8px;
+}
+
+.spot-details-reviews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+}
+
+.single-spot-review {
+    width: 41.6667%;
+    margin-right: 8.33333%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 40px
+}
+
+.review-details {
+    display: block;
+    margin-bottom: 16px;
+    justify-content: left;
+    align-items: center;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.review-date {
+    color: #717171;
+}
+
+.review-text {
+    font-size: 16px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
