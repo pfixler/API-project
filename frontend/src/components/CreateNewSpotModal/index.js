@@ -13,13 +13,8 @@ const CreateNewSpotModal = () => {
     const history = useHistory();
     const { closeModal } = useModal();
     const [errors, setErrors] = useState([]);
-    // const [closed, setClosed] = useState(false)
-
-    // useEffect(() => {
-    //     // dispatch(getAllSpots());
-    //     history.push('/');
-    //     console.log('use effect in create spot modal')
-    // }, [closeModal])
+    const [spotGetter, setSpotGetter] = useState();
+    // console.log('newspot at begining', spotGetter)
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -60,53 +55,34 @@ const CreateNewSpotModal = () => {
             description,
             price
         };
-        // console.log(newSpot);
 
         const newImage = {
             url,
             preview:true,
         }
 
-        return dispatch(createSpot(newSpot, newImage))
-            // .then(dispatch(getAllSpots()))
+        const newPlace = await dispatch(createSpot(newSpot, newImage))
+            .then(async (res) => {
+                setSpotGetter(res)})
             .then(closeModal)
-            // .then(history.push('/'))
             .catch(
                 async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 }
             );
-
-        // let createdSpot = await dispatch(createSpot(newSpot));
-        // e.preventDefault();
-        // // console.log(createdSpot);
-        // // console.log('hello');
-        // if (createdSpot) {
-        //     dispatch(getAllSpots());
-        //     closeModal();
-        //     history.push('/');
-        // //   hideForm();
-        // }
-        // else {
-        //     async (res) => {
-        //         const data = await res.json();
-        //         if (data && data.errors) setErrors(data.errors);
-        //       }
-        // }
-
 };
 
-
-
-
+    useEffect(() => {
+        if (spotGetter) {
+            history.push(`/spots/${spotGetter.id}`)
+        }
+    }, [spotGetter])
 
     const handleCancelClick = (e) => {
         e.preventDefault();
         // hideForm();
         };
-
-
 
 
     return (
@@ -255,7 +231,13 @@ const CreateNewSpotModal = () => {
                             onChange={updateLng}
                         /> */}
                         <div className='submit-spot-button-box'>
-                            <button className='submit-spot-button' type='submit'>Create New Spot</button>
+                            <button
+                                className='submit-spot-button'
+                                type='submit'
+                                // disabled={!!errors.length}
+                                >
+                                    Create New Spot
+                            </button>
                         </div>
                     {/* <button
                     type='button'
