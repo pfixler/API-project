@@ -192,11 +192,28 @@
     line-height: 18px;
 }
 
+.yes-session-box-item:hover {
+    background-color: #f5f5f5;
+}
+
 .yes-session-box button:hover {
     background-color: #f5f5f5;
 }
 
-.yes-session-box button {
+.yes-session-box-item {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.yes-session-box button{
     display: flex;
     align-items: center;
     background: transparent;

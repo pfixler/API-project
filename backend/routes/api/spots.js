@@ -578,7 +578,7 @@ router.get('/:spotId', async (req, res) => {
 })
 
 //edit a spot
-router.put('/:spotId', requireAuth, async (req, res) => {
+router.put('/:spotId', requireAuth, async (req, res, next) => {
     const {user} = req;
     const spotId = req.params.spotId;
     const {address, city, state, country,

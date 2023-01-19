@@ -16,16 +16,9 @@ const SpotDetails = () => {
 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spot.oneSpot);
-    const destructuredSpot = {...spot};
-    console.log('destructered spot', destructuredSpot)
-    const [spotListner, setSpotListener] = useState(destructuredSpot);
     const spotReviewsObj = useSelector(state => state.review.spotReviews);
-    const destructuredReviews = {...spotReviewsObj};
-    console.log('destructered reviews', destructuredReviews);
-    const [reviewsListener, setReviewsListener] = useState(destructuredReviews);
     const spotReviews = Object.values(spotReviewsObj);
-    // const numSpotReviews = spotReviews.length;
-    // const [numReviews, setNumReviews] = useState(numSpotReviews);
+
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     const deleteSpotFunction = async (e) => {

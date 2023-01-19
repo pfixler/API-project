@@ -51,6 +51,10 @@ const EditSpotModal = ({spot}) => {
             name,
             description,
             price,
+            // Owner: spot.Owner,
+            // SpotImages: spot.SpotImages,
+            // avgStarRating: spot.avgStarRating,
+            // numReviews: spot.numReviews
         };
         // console.log(updatedSpot);
 
@@ -62,6 +66,7 @@ const EditSpotModal = ({spot}) => {
                     if (data && data.errors) setErrors(data.errors);
                 }
             );
+        // history.push(`/spots/${updatedSpot.id}`);
       };
 
     const handleCancelClick = (e) => {

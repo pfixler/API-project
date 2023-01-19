@@ -52,8 +52,14 @@ export const createReview = (newReview, spotId) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const review = await response.json();
-        dispatch(addOne(review))
+        const beforeReview = await response.json();
+        const response1 = await fetch(`/api/spots/${spotId}/reviews`);
+        if (response1.ok) {
+            const reviewsList = await response1.json();
+            const reviewArray = reviewsList.Reviews;
+            const review = reviewArray[reviewArray.length-1];
+            dispatch(addOne(review));
+        }
     }
 };
 
@@ -81,11 +87,19 @@ const reviewReducer = (state = initialState, action) => {
             })
             return newState;
         case LOAD_USER_REVIEWS:
+            newState = {...state, userReviews: {}};
+            action.reviews.Reviews.forEach((review) => {
+                newState.userReviews[review.id] = review;
+            })
+            return newState;
         case ADD_REVIEW:
-            newState = {...state};
+            newState = {...state, spotReviews: {...state.spotReviews}};
             newState.spotReviews[action.review.id] = action.review;
             return newState;
         case DELETE_REVIEW:
+            newState = {...state};
+            delete newState.userReviews[action.reviewId];
+            return newState;
         default:
             return state;
     }
