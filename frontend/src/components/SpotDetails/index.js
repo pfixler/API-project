@@ -5,6 +5,7 @@ import { getSpotDetails, deleteSpot } from '../../store/spot';
 import { getSpotReviews } from '../../store/review';
 import OpenModalButton from '../OpenModalButton';
 import EditSpotModal from '../EditSpotModal';
+import CreateNewReviewModal from '../CreateNewReviewModal';
 import "./SpotDetails.css"
 
 
@@ -17,6 +18,7 @@ const SpotDetails = () => {
     const spot = useSelector(state => state.spot.oneSpot);
     const spotReviewsObj = useSelector(state => state.review.spotReviews);
     const spotReviews = Object.values(spotReviewsObj);
+    const numSpotReviews = spotReviews.length;
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     const deleteSpotFunction = async (e) => {
@@ -27,8 +29,8 @@ const SpotDetails = () => {
     }
 
     useEffect(() => {
-        dispatch(getSpotDetails(spotId));
         dispatch(getSpotReviews(spotId));
+        dispatch(getSpotDetails(spotId));
     }, [dispatch, spotId]);
 
 
@@ -188,6 +190,12 @@ const SpotDetails = () => {
                         <span className='rating-number' id='review-rating-number'>
                             {spot.avgStarRating} · {spot.numReviews} reviews
                         </span>
+                        <div className='create-review-button'>
+                            <OpenModalButton
+                                buttonText="Create a review"
+                                modalComponent={<CreateNewReviewModal spotId={spotId}/>}
+                            />
+                        </div>
                     </div>
                     <div className='spot-details-reviews'>
                         {spotReviews.map(({id, review, updatedAt, User}) => (

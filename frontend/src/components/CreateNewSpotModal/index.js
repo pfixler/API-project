@@ -61,6 +61,8 @@ const CreateNewSpotModal = () => {
             preview:true,
         }
 
+
+        //return here?
         const newPlace = await dispatch(createSpot(newSpot, newImage))
             .then(async (res) => {
                 setSpotGetter(res)})

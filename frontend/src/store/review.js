@@ -44,6 +44,7 @@ export const getUserReviews = () => async (dispatch) => {
 };
 
 export const createReview = (newReview, spotId) => async (dispatch) => {
+    console.log('spotid in thunk', spotId)
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -81,6 +82,9 @@ const reviewReducer = (state = initialState, action) => {
             return newState;
         case LOAD_USER_REVIEWS:
         case ADD_REVIEW:
+            newState = {...state};
+            newState.spotReviews[action.review.id] = action.review;
+            return newState;
         case DELETE_REVIEW:
         default:
             return state;
