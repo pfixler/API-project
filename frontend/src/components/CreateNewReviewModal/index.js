@@ -8,7 +8,7 @@ import './CreateNewReviewModal.css';
 
 const CreateNewReviewModal = ({spotId}) => {
     const dispatch = useDispatch();
-    const { closeModal } = useModal;
+    const { closeModal } = useModal();
     // const { spotId } = useParams();
     const [errors, setErrors] = useState([]);
 
@@ -29,7 +29,7 @@ const CreateNewReviewModal = ({spotId}) => {
             review
         };
 
-        await dispatch(createReview(newReview, spotId))
+        const addedReview = await dispatch(createReview(newReview, spotId))
             .then(console.log('inside'))
             .then(closeModal)
             .catch(
@@ -45,7 +45,7 @@ const CreateNewReviewModal = ({spotId}) => {
         <div className="create-review-modal-box">
             <div className="create-review-modal-header">Create a Review</div>
             <div className="create-review-modal-form">
-                <form className="create-spot-form" onSubmit={handleSubmit}>
+                <form className="create-review-form" onSubmit={handleSubmit}>
                     <ul>
                         {errors.map((error, idx) => (
                             <li key={idx}>{error}</li>

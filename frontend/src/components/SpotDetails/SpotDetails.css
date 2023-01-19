@@ -394,9 +394,9 @@ span {
     margin-bottom: 32px;
 }
 
-.create-review-button {
-    
-}
+/* .create-review-button {
+
+} */
 
 #review-rating-icon {
     font-size: 16px;
@@ -414,11 +414,11 @@ span {
 }
 
 .single-spot-review {
-    width: 41.6667%;
-    margin-right: 8.33333%;
+    width: 82%;
+    margin-right: 18%;
     padding-left: 8px;
     padding-right: 8px;
-    margin-bottom: 40px
+    margin-bottom: 40px;
 }
 
 .review-details {

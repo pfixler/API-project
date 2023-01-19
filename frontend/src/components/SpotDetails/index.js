@@ -12,13 +12,20 @@ import "./SpotDetails.css"
 
 const SpotDetails = () => {
     const history = useHistory();
-    const {spotId} = useParams();
+    const { spotId } = useParams();
 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spot.oneSpot);
+    const destructuredSpot = {...spot};
+    console.log('destructered spot', destructuredSpot)
+    const [spotListner, setSpotListener] = useState(destructuredSpot);
     const spotReviewsObj = useSelector(state => state.review.spotReviews);
+    const destructuredReviews = {...spotReviewsObj};
+    console.log('destructered reviews', destructuredReviews);
+    const [reviewsListener, setReviewsListener] = useState(destructuredReviews);
     const spotReviews = Object.values(spotReviewsObj);
-    const numSpotReviews = spotReviews.length;
+    // const numSpotReviews = spotReviews.length;
+    // const [numReviews, setNumReviews] = useState(numSpotReviews);
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     const deleteSpotFunction = async (e) => {
@@ -31,7 +38,7 @@ const SpotDetails = () => {
     useEffect(() => {
         dispatch(getSpotReviews(spotId));
         dispatch(getSpotDetails(spotId));
-    }, [dispatch, spotId]);
+    }, [dispatch]);
 
 
     if (!spot) {
