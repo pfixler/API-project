@@ -21,7 +21,7 @@ function LoginFormModal() {
         async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
-          else if (data && data.title.includes('Error')) setErrors(data.message);
+          else if (data && data.title.includes('Error')) setErrors([data.message]);
         }
       );
   };
