@@ -24,6 +24,7 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
+          else if (data && data.title.includes('Error')) setErrors(data.message);
         });
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
@@ -35,7 +36,7 @@ function SignupFormModal() {
           <div className="signup-modal-form">
             <div className="form-information">
               <form onSubmit={handleSubmit}>
-                <ul>
+                <ul className="error-list">
                   {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <div className="input-box" id="email-input-box">

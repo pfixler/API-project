@@ -7,7 +7,8 @@ import { Route } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import EditSpotModal from '../EditSpotModal';
 import CreateNewReviewModal from '../CreateNewReviewModal';
-import "./SpotDetails.css"
+import "./SpotDetails.css";
+import { roundRating } from '../SpotsBrowser';
 
 
 
@@ -20,7 +21,7 @@ const SpotDetails = () => {
     const spot = useSelector(state => state.spot.oneSpot);
     const spotReviewsObj = useSelector(state => state.review.spotReviews);
     const spotReviews = Object.values(spotReviewsObj);
-
+    console.log(typeof spot.avgStarRating);
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -71,7 +72,7 @@ const SpotDetails = () => {
                                         <i className="fa-solid fa-star"></i>
                                     </span>
                                     <span className='rating-number' id='spot-details-rating-number'>
-                                        {spot.avgStarRating} ·
+                                        {roundRating(spot.avgStarRating)} ·
                                     </span>
                                     <span className='review-list'>
                                         <div className='review-list-button'>
@@ -174,7 +175,7 @@ const SpotDetails = () => {
                                                     <i className="fa-solid fa-star"></i>
                                                 </span>
                                                 <span className='rating-number' id='booking-rating-number'>
-                                                    {spot.avgStarRating} ·
+                                                    {roundRating(spot.avgStarRating)} ·
                                                 </span>
                                                 <span className='review-list'>
                                                     <div className='review-list-button' id='booking-review-list-button'>
@@ -196,13 +197,15 @@ const SpotDetails = () => {
                             <i className="fa-solid fa-star"></i>
                         </span>
                         <span className='rating-number' id='review-rating-number'>
-                            {spot.avgStarRating} · {spot.numReviews} reviews
+                            {roundRating(spot.avgStarRating)} · {spot.numReviews} reviews
                         </span>
-                        <div className='create-review-button'>
-                            <OpenModalButton
-                                buttonText="Create a review"
-                                modalComponent={<CreateNewReviewModal spotId={spotId}/>}
-                            />
+                        <div className='create-review-button-box'>
+                            <div className='create-review-button'>
+                                <OpenModalButton
+                                    buttonText="Create a Review"
+                                    modalComponent={<CreateNewReviewModal spotId={spotId}/>}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className='spot-details-reviews'>

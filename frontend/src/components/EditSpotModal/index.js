@@ -64,6 +64,7 @@ const EditSpotModal = ({spot}) => {
                 async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
+                    else if (data && data.title.includes('Error')) setErrors(data.message);
                 }
             );
         // history.push(`/spots/${updatedSpot.id}`);
@@ -82,7 +83,7 @@ const EditSpotModal = ({spot}) => {
             <div className='edit-spot-modal-form'>
                 <div className='form-information'>
                     <form className='edit-spot-form' onSubmit={handleSubmit}>
-                        <ul>
+                        <ul className="error-list">
                             {errors.map((error, idx) => (
                                 <li key={idx}>{error}</li>
                             ))}
@@ -99,7 +100,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid address.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -114,7 +115,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid city.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -129,7 +130,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid state.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -144,7 +145,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid country.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -159,7 +160,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Make sure the spot name is less than 50 characters.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -174,7 +175,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please write at least 20 characters.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -189,7 +190,7 @@ const EditSpotModal = ({spot}) => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid price.
                             </div>
                         </div>
                         {/* <input

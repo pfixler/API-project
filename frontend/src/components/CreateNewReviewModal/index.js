@@ -36,6 +36,7 @@ const CreateNewReviewModal = ({spotId}) => {
                 async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
+                    else if (data && data.title.includes('Error')) setErrors(data.message);
                 }
             )
     }
@@ -46,7 +47,7 @@ const CreateNewReviewModal = ({spotId}) => {
             <div className="create-review-modal-header">Create a Review</div>
             <div className="create-review-modal-form">
                 <form className="create-review-form" onSubmit={handleSubmit}>
-                    <ul>
+                    <ul className="error-list">
                         {errors.map((error, idx) => (
                             <li key={idx}>{error}</li>
                         ))}
@@ -70,7 +71,7 @@ const CreateNewReviewModal = ({spotId}) => {
                             </select>
                         </label>
                         <div className="single-error-information">
-                            Make sure your passwords match.
+                            Select a rating between 1 and 5.
                         </div>
                     </div>
                     <div className='review-input-box'>
@@ -85,7 +86,7 @@ const CreateNewReviewModal = ({spotId}) => {
                             />
                         </div>
                         <div className="single-error-information">
-                            Make sure your passwords match.
+                            Please give an honest review.
                         </div>
                     </div>
                     <div className='submit-review-button-box'>

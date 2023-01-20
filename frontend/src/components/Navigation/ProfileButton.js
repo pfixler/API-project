@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
       <section></section>
         {/* <div className="yes-session-box-item"> */}
           <NavLink to={`/${user.id}/reviews`} target="_blank">
-            <button>User reviews</button>
+            <button>User Reviews</button>
           </NavLink>
 
         {/* </div> */}
