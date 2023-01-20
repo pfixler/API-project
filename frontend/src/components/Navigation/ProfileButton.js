@@ -49,9 +49,12 @@ function ProfileButton({ user }) {
         <p>{user.email}</p>
       </div>
       <section></section>
-        <div className="yes-session-box-item">
-          <NavLink to={`/${user.id}/reviews`} target="_blank">User reviews</NavLink>
-        </div>
+        {/* <div className="yes-session-box-item"> */}
+          <NavLink to={`/${user.id}/reviews`} target="_blank">
+            <button>User reviews</button>
+          </NavLink>
+
+        {/* </div> */}
       <section></section>
         <button onClick={logout}>Log Out</button>
     </>
