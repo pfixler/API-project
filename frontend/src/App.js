@@ -6,6 +6,7 @@ import * as spotActions from "./store/spot";
 import Navigation from "./components/Navigation";
 import SpotsBrowser from "./components/SpotsBrowser";
 import SpotDetails from "./components/SpotDetails";
+import UserReviews from "./components/UserReviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,8 +24,11 @@ function App() {
           <Route exact path='/'>
             <SpotsBrowser />
           </Route>
-          <Route exact path='/spots/:spotId'>
+          <Route path='/spots/:spotId'>
             <SpotDetails />
+          </Route>
+          <Route path='/:userId/reviews'>
+            <UserReviews />
           </Route>
           {/* <Route exact path='/spots'>
                 <SpotDetails />

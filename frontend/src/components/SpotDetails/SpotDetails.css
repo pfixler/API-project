@@ -1,0 +1,446 @@
+div {
+    box-sizing: border-box;
+}
+
+span {
+    box-sizing: border-box;
+}
+
+.spot-details-box {
+    display: block;
+}
+
+/* .spot-details-information {
+
+} */
+
+@media only screen and (min-width: 1128px) {
+    .spot-details-information {
+        padding-right: 40px;
+        padding-left: 40px;
+        /* padding should be 80px but you have to change the nav margins as well */
+    }
+}
+
+@media only screen and (min-width: 950px) and (max-width: 1127px) {
+    .spot-details-information {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+@media only screen and (min-width: 744px) and (max-width: 949px) {
+    .spot-details-information {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+
+@media only screen and (min-width: 375px) and (max-width: 743px) {
+    .spot-details-information {
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+}
+
+.spot-details-header-box {
+    display: block;
+}
+
+.spot-details-header-information {
+    padding-top: 24px;
+}
+
+.spot-name-box {
+    margin-bottom: 4px;
+}
+
+.spot-name {
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.spot-details-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-and-location-box {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.review-box {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+#spot-details-rating-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 4px;
+    min-width: 14px;
+}
+
+#spot-details-rating-number {
+    overflow: clip;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    font-weight: 600;
+}
+
+.review-list {
+    line-height: 20px;
+    padding-left: 4px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.review-list-button {
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    background: transparent;
+    border: none;
+    display: block;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    /* this will be a button */
+}
+
+.interpunct-divider {
+    color: rgb(113, 113, 113);
+    font-weight: 400;
+    margin: 8px 8px 0px;
+}
+
+.host-text {
+    margin-top: 4px;
+    text-overflow: ellipsis;
+    display: inline-flex;
+    align-items: center;
+}
+
+.location-box {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.location-button {
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    background: transparent;
+    border: none;
+    display: block;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    /* this will be a button */
+}
+
+.location-button-text {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.spot-details-action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.edit-spot-box {
+    display: flex;
+    align-items: center;
+}
+
+.edit-spot-button {
+    margin-right: 20px;
+    height: 25px;
+    width: auto;
+}
+
+.edit-spot-button button {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+    color: white;
+    border-radius: 8px;
+    /* outline: none; */
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-spot-box {
+    display: flex;
+    align-items: center;
+}
+
+.delete-spot-button {
+    height: 25px;
+    width: auto;
+}
+
+.delete-spot-button button {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+    color: white;
+    border-radius: 8px;
+    /* outline: none; */
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.spot-details-image-box {
+    padding-top: 24px;
+    /* border-radius: 12px; */
+}
+
+.spot-details-image-information {
+    display: grid;
+    /* grid-template-columns: 4, 1fr;
+    grid-template-rows: 2, 1fr; */
+    column-gap: 8px;
+    row-gap: 8px;
+    height: 300px;
+}
+
+.big-spot-image-box {
+    grid-row: 1 / 3;
+    grid-column: 1 / 3;
+    height: 300px;
+    width: 100%;
+}
+
+.big-spot-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.small-spot-image-box {
+    height: 146px;
+    width: 100%;
+}
+
+.small-spot-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+#top-right {
+    grid-column: 4;
+    grid-row: 1;
+}
+
+#top-left {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#bottom-right {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+#bottom-left {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+/* .spot-details-details-box {
+
+} */
+
+.spot-details-details-information {
+    display: flex;
+    border-bottom: solid grey .5px;
+}
+
+.spot-details-walkthrough {
+    position: relative;
+    width: 58.333333333333336%;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+
+.spot-layout {
+    padding-top: 48px;
+    padding-bottom: 24px;
+    border-bottom: solid grey .5px;
+}
+
+.spot-layout::after {
+    display: flex;
+    content: '';
+    /* line after?? */
+}
+
+.host-information {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: 8px;
+}
+
+.spot-description-box {
+    border-bottom: solid grey .5px;
+    padding-top: 32px;
+    padding-bottom: 48px;
+    white-space: pre-wrap;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+}
+
+.create-booking-menu-box {
+    position: relative;
+    width: 33.33333333333333%;
+    margin-left: 8.333333333333332%;
+    margin-right: 0%;
+}
+
+.create-booking-menu {
+    position: sticky;
+    top: 80px;
+    z-index: 1;
+    width: 100%;
+    display: inline-block;
+    padding-right: 1px;
+    padding-bottom: 48px;
+}
+
+.create-booking-form-box {
+    margin-top: 48px;
+}
+
+.create-booking-form {
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+    color: rgb(34, 34, 34);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-price-and-reviews {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+}
+
+.booking-price {
+    display: flex;
+    align-items: baseline;
+}
+
+.booking-price-number {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.booking-reviews {
+    margin-top: 8px;
+    display: flex;
+    align-items: baseline;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#booking-rating-icon {
+    font-size: 12px;
+}
+
+#booking-rating-number {
+    padding-left: 4px;
+    font-weight: 600;
+}
+
+#booking-review-list-button {
+    color: rgb(113, 113, 113);
+}
+
+.spot-details-reviews-box {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.spot-details-reviews-header {
+    display: flex;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 26px;
+    justify-content: flex-start;
+    margin-bottom: 32px;
+}
+
+/* .create-review-button {
+
+} */
+
+#review-rating-icon {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+#review-rating-number {
+    margin-right: 8px;
+}
+
+.spot-details-reviews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+}
+
+.single-spot-review {
+    width: 82%;
+    margin-right: 18%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 40px;
+}
+
+.review-details {
+    display: block;
+    margin-bottom: 16px;
+    justify-content: left;
+    align-items: center;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.review-date {
+    color: #717171;
+}
+
+.review-text {
+    font-size: 16px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

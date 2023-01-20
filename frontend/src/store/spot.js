@@ -69,8 +69,12 @@ export const createSpot = (newSpot, newImage) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newImage)
         })
-        dispatch(getAllSpots());
         dispatch(addOne(spot));
+        // console.log('between 2')
+        //remove and change add a spot in reducer
+        //make sure added object looks the same as other objects
+        // await dispatch(getAllSpots());
+
         return spot;
     }
 };
@@ -84,26 +88,31 @@ export const editSpot = (editedSpot) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const spot = await response.json();
-        // console.log(spot);
-        dispatch(editOne(spot));
-        return spot;
+        const beforeSpot = await response.json();
+        const response1 = await fetch(`/api/spots/${beforeSpot.id}`);
+        console.log('response1', response1)
+        if (response1.ok) {
+            const spot = await response1.json();
+            console.log('spot in thunk', spot)
+            dispatch(editOne(spot));
+            return spot;
+        }
     }
 };
 
 export const deleteSpot = (deleteSpot) => async (dispatch) => {
-    console.log(deleteSpot);
+    // console.log(deleteSpot);
     const response = await csrfFetch(`/api/spots/${deleteSpot.id}`, {
         method: "DELETE",
     });
 
     if (response.ok) {
         const spot = await response.json();
-        dispatch(deleteOne(spot));
+        dispatch(deleteOne(deleteSpot));
     }
 };
 
-const initialState = { allSpots: {}, oneSpot: {}};
+const initialState = { allSpots: {}, oneSpot: {} };
 
 const spotReducer = (state = initialState, action) => {
     let newState;
@@ -119,20 +128,18 @@ const spotReducer = (state = initialState, action) => {
             newState.oneSpot = action.spot;
             return newState;
         case ADD_ONE_SPOT:
-            newState = {...state};
+            newState = {...state, oneSpot: {}};
             // console.log(action.spot);
-            newState.allSpots[action.spot.id] = action.spot;
+            newState.oneSpot[action.spot.id] = action.spot;
             // console.log(newState);
             return newState;
         case EDIT_ONE_SPOT:
-            newState = {...state};
-            newState.allSpots[action.spot.id] = action.spot;
-            // console.log(action.spot.id);
-            // console.log(action.spot);
+            newState = {...state, oneSpot: {...state.oneSpot}};
+            newState.oneSpot = action.spot;
             return newState;
         case DELETE_ONE_SPOT:
-            newState = {...state};
-            delete newState.allSpots[action.spotId];
+            newState = {...state, oneSpot: {...state.oneSpot}};
+            delete newState.oneSpot[action.spot.id];
             return newState;
         default:
             return state;

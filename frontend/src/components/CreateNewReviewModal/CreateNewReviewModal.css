@@ -2,12 +2,7 @@ div {
     box-sizing: border-box;
 }
 
-.edit-spot-modal-box {
-    box-sizing: border-box;
-    /* border-radius: 12px; */
-}
-
-.edit-spot-modal-header {
+.create-review-modal-header {
     display: flex;
     align-items: center;
     padding-right: 24px;
@@ -23,24 +18,20 @@ div {
     text-overflow: ellipsis;
 }
 
-.edit-spot-modal-form {
-    /* flex: 1 1 auto; */
+.create-review-modal-form {
     padding: 24px;
     max-width: calc(100vw - 2rem);
     max-height: calc(100vh - 9rem);
     overflow-y: auto;
-    /* position: relative; */
-    /* width: 100%; */
-    /* max-height: 100vh; */
 }
 
-.input-box {
+.star-input-box {
     border-radius: 8px;
     margin-top: 24px;
     margin-bottom: 24px;
 }
 
-.input-field {
+.star-input-label {
     cursor: text;
     min-height: 56px;
     width: auto;
@@ -55,12 +46,35 @@ div {
     font-weight: 400;
 }
 
-.input-label {
+
+
+.review-input-box {
+    border-radius: 8px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.review-input-field {
+    cursor: text;
+    min-height: 56px;
+    width: auto;
+    margin: 0px;
+    border: none transparent;
+    color: rgb(34, 34, 34);
+    background-color: transparent;
+    border-radius: 0px;
+    box-shadow: none;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.review-input-label {
     position: relative;
     box-sizing: border-box;
 }
 
-.input-data {
+.review-input-data {
     display: flex;
     align-items: center;
     max-width: 100%;
@@ -77,7 +91,7 @@ div {
     min-height: 56px;
 }
 
-.input-data ::placeholder {
+.review-input-data ::placeholder {
     color: #717171;
     /* color: #222222; */
 }
@@ -92,12 +106,12 @@ div {
     font-weight: 400;
 }
 
-.submit-spot-button-box {
+.submit-review-button-box {
     margin-top: 24px;
     margin-bottom: 24px;
 }
 
-.submit-spot-button {
+.submit-review-button {
     cursor: pointer;
     display: inline-block;
     margin: 0px;

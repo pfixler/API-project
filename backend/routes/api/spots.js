@@ -112,7 +112,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 
 
 //create a review for a spot based on the spots id
-router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     const {review, stars} = req.body;
     const {user} = req;
     const reviewSpot = await Spot.findByPk(req.params.spotId);
@@ -122,37 +122,18 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
         }
     })
 
+    const errorArray = [];
+
     if (!reviewSpot) {
-        res.status(404);
-        res.json({
-            message: "Spot couldn't be found",
-            statusCode: 404,
-
-        });
-
-        let err = new Error("Couldn't find a Spot with the specified id");
-        err.statusCode = 404;
-        err.message = "Couldn't find a Spot with the specified id";
-
-        return (console.log(err));
+        errorArray.push("Spot couldn't be found")
     }
 
-    if (!review || stars > 5 || stars < 1) {
-        res.status(400);
-        res.json({
-            message: "Validation error",
-            statusCode: 400,
-            errors: {
-                review: "Review text is required",
-                stars: "Stars must be an integer from 1 to 5"
-            }
-        })
+    if (!review) {
+        errorArray.push("Review text is required")
+    }
 
-        let err = new Error('Body validation errors');
-        err.statusCode = 400;
-        err.message = "Body validation errors";
-
-        return (console.log(err));
+    if (stars < 1 || stars > 5) {
+        errorArray.push("Stars must be an integer from 1 to 5")
     }
 
     let reviewBoolean;
@@ -163,19 +144,73 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     })
 
     if (reviewBoolean === false) {
-        res.status(403);
-        res.json({
-            message: "User already has a review for this spot",
-            statusCode: 403,
-
-        });
-
-        let err = new Error("Review from the current user already exists for the Spot");
-        err.statusCode = 403;
-        err.message = "Review from the current user already exists for the Spot";
-
-        return (console.log(err));
+        errorArray.push("User already has a review for this spot")
     }
+
+
+    if (errorArray.length > 0) {
+        const err = new Error('Validation Error');
+        err.status = 400;
+        err.title = 'Creation failed';
+        err.errors = errorArray;
+        console.log(errorArray);
+        return next(err);
+        }
+
+    // if (!reviewSpot) {
+    //     res.status(404);
+    //     res.json({
+    //         message: "Spot couldn't be found",
+    //         statusCode: 404,
+
+    //     });
+
+    //     let err = new Error("Couldn't find a Spot with the specified id");
+    //     err.statusCode = 404;
+    //     err.message = "Couldn't find a Spot with the specified id";
+
+    //     return (console.log(err));
+    // }
+
+    // if (!review || stars > 5 || stars < 1) {
+    //     res.status(400);
+    //     res.json({
+    //         message: "Validation error",
+    //         statusCode: 400,
+    //         errors: {
+    //             review: "Review text is required",
+    //             stars: "Stars must be an integer from 1 to 5"
+    //         }
+    //     })
+
+    //     let err = new Error('Body validation errors');
+    //     err.statusCode = 400;
+    //     err.message = "Body validation errors";
+
+    //     return (console.log(err));
+    // }
+
+    // // let reviewBoolean;
+    // // reviews.forEach(review => {
+    // //     if (review.userId == user.id) {
+    // //         reviewBoolean = false;
+    // //     }
+    // // })
+
+    // if (reviewBoolean === false) {
+    //     res.status(403);
+    //     res.json({
+    //         message: "User already has a review for this spot",
+    //         statusCode: 403,
+
+    //     });
+
+    //     let err = new Error("Review from the current user already exists for the Spot");
+    //     err.statusCode = 403;
+    //     err.message = "Review from the current user already exists for the Spot";
+
+    //     return (console.log(err));
+    // }
 
 
 
@@ -543,7 +578,7 @@ router.get('/:spotId', async (req, res) => {
 })
 
 //edit a spot
-router.put('/:spotId', requireAuth, async (req, res) => {
+router.put('/:spotId', requireAuth, async (req, res, next) => {
     const {user} = req;
     const spotId = req.params.spotId;
     const {address, city, state, country,
@@ -551,82 +586,146 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     const spot = await Spot.findByPk(spotId);
     // console.log(spot);
 
-    if (!spot) {
-        res.status(404);
-        res.json({
-            message: "Spot couldn't be found",
-            statusCode: 404,
-
-        });
-
-        let err = new Error("Couldn't find a Spot with the specified id");
-        err.statusCode = 404;
-        err.message = "Couldn't find a Spot with the specified id";
-
-        return (console.log(err));
-    }
-
-    if (spot.ownerId != user.id) {
-        res.status(403);
-        res.json({
-            message: "Forbidden",
-            statusCode: 403,
-            errors: {
-                userId: "spot must belong to the current user"
-            }
-        })
-
-        let err = new Error("Authorization error");
-        err.statusCode = 403;
-        err.message = "Authorization error";
-
-        return (console.log(err));
-    }
-
+    const errorArray = [];
 
     let validLat;
     let validLng;
 
-        if (typeof lat === 'number' && lat <= 180 && lat >= -180) {
-            validLat = true;
-        }
-        else {
-            validLat = false;
+    if (typeof lat === 'number' && lat <= 180 && lat >= -180) {
+        validLat = true;
+    }
+    else {
+        validLat = false;
+    }
+
+    if (typeof lng === 'number' && lng <= 180 && lng >= -180) {
+        validLng = true;
+    }
+    else {
+        validLng = false;
+    }
+
+    if (!spot) {
+        errorArray.push("Spot couldn't be found");
+    }
+
+    if (spot.ownerId != user.id) {
+        errorArray.push("Spot must belong to the current user");
+    }
+
+    if (!address) {
+        errorArray.push('Street address is required')
+    }
+    if (!city) {
+        errorArray.push('City is required')
+    }
+    if (!state) {
+        errorArray.push('State is required')
+    }
+    if (!country) {
+        errorArray.push('Country is required')
+    }
+    if (!validLat) {
+        errorArray.push('Latitude must be between 180 and -180')
+    }
+    if (!validLng) {
+        errorArray.push('Longitude must be between 180 and -180')
+    }
+    if (name.length > 50) {
+        errorArray.push('Name must be less than 50 characters')
+    }
+    if (description.length < 20) {
+        errorArray.push('Description must be more than 20 characters')
+    }
+    if (!price) {
+        errorArray.push('Price per day is required')
+    }
+
+    if (errorArray.length > 0) {
+        const err = new Error('Validation Error');
+        err.status = 400;
+        err.title = 'Creation failed';
+        err.errors = errorArray;
+        console.log(errorArray);
+        return next(err);
         }
 
-        if (typeof lng === 'number' && lng <= 180 && lng >= -180) {
-            validLng = true;
-        }
-        else {
-            validLng = false;
-        }
+    // if (!spot) {
+    //     res.status(404);
+    //     res.json({
+    //         message: "Spot couldn't be found",
+    //         statusCode: 404,
 
-        if (!address || !city || !state || !country ||
-            !validLat || !validLng || name.length > 50 ||
-            !description || !price) {
-            res.status(400);
-            res.json({
-                message: "Validation Error",
-                statusCode: 400,
-                errors: {
-                    address: "Street address is required",
-                    city: "City is required",
-                    state: "State is required",
-                    country: "Country is required",
-                    lat: "Latitude is not valid",
-                    lng: "Longitude is not valid",
-                    name: "Name must be less than 50 characters",
-                    description: "Description is required",
-                    price: "Price per day is required"
-                  }
-            })
+    //     });
 
-            let err = new Error("Body validation error");
-            err.statusCode = 400;
-            err.message = "Body validation error";
+    //     let err = new Error("Couldn't find a Spot with the specified id");
+    //     err.statusCode = 404;
+    //     err.message = "Couldn't find a Spot with the specified id";
 
-            return (console.log(err));
-        }
+    //     return (console.log(err));
+    // }
+
+    // if (spot.ownerId != user.id) {
+    //     res.status(403);
+    //     res.json({
+    //         message: "Forbidden",
+    //         statusCode: 403,
+    //         errors: {
+    //             userId: "spot must belong to the current user"
+    //         }
+    //     })
+
+    //     let err = new Error("Authorization error");
+    //     err.statusCode = 403;
+    //     err.message = "Authorization error";
+
+    //     return (console.log(err));
+    // }
+
+
+    // let validLat;
+    // let validLng;
+
+    //     if (typeof lat === 'number' && lat <= 180 && lat >= -180) {
+    //         validLat = true;
+    //     }
+    //     else {
+    //         validLat = false;
+    //     }
+
+    //     if (typeof lng === 'number' && lng <= 180 && lng >= -180) {
+    //         validLng = true;
+    //     }
+    //     else {
+    //         validLng = false;
+    //     }
+
+    //     if (!address || !city || !state || !country ||
+    //         !validLat || !validLng || name.length > 50 ||
+    //         !description || !price) {
+    //         res.status(400);
+    //         res.json({
+    //             message: "Validation Error",
+    //             statusCode: 400,
+    //             errors: {
+    //                 address: "Street address is required",
+    //                 city: "City is required",
+    //                 state: "State is required",
+    //                 country: "Country is required",
+    //                 lat: "Latitude is not valid",
+    //                 lng: "Longitude is not valid",
+    //                 name: "Name must be less than 50 characters",
+    //                 description: "Description is required",
+    //                 price: "Price per day is required"
+    //               }
+    //         })
+
+    //         let err = new Error("Body validation error");
+    //         err.statusCode = 400;
+    //         err.message = "Body validation error";
+
+    //         return (console.log(err));
+    //     }
 
     await Spot.update(
         {
@@ -636,7 +735,6 @@ router.put('/:spotId', requireAuth, async (req, res) => {
         country: country,
         lat: lat,
         lng: lng,
-        address: address,
         name: name,
         description: description,
         price: price,

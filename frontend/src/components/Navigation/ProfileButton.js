@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
+import { NavLink } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -47,6 +48,13 @@ function ProfileButton({ user }) {
         <p>{user.firstName} {user.lastName}</p>
         <p>{user.email}</p>
       </div>
+      <section></section>
+        {/* <div className="yes-session-box-item"> */}
+          <NavLink to={`/${user.id}/reviews`} target="_blank">
+            <button>User reviews</button>
+          </NavLink>
+
+        {/* </div> */}
       <section></section>
         <button onClick={logout}>Log Out</button>
     </>

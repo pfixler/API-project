@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
@@ -8,12 +8,21 @@ import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
 import CreateNewSpotModal from '../CreateNewSpotModal';
 import { useState, useRef } from 'react';
+import * as sessionActions from "../../store/session";
 
 
 function Navigation({ isLoaded }){
+  const dispatch = useDispatch();
   const menuRef = useRef(null);
   const buttonRef = useRef(null)
   const sessionUser = useSelector(state => state.session.user);
+
+  // const demoCredential = "Demo-lition";
+  // const demoPassword = "password";
+  const demoUserLogin = (e) => {
+    e.preventDefault();
+    return dispatch(sessionActions.login({ credential:"Demo-lition", password:"password" }))
+  };
 
   let sessionLinks;
   if (sessionUser) {
@@ -25,6 +34,11 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <div className='no-session-box'>
+        <div className='demo-user-box'>
+          <button className='demo-user-button' onClick={demoUserLogin}>
+            Demo User
+          </button>
+        </div>
         <div className='log-in-box'>
 
           <OpenModalButton
