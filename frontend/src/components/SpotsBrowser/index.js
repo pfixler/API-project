@@ -6,7 +6,12 @@ import SpotDetails from "../SpotDetails";
 import "./SpotsBrowser.css"
 
 
-
+export const roundRating = (rating) => {
+    if (typeof rating != 'number') {
+        return 'New';
+    }
+    return Math.round((rating + Number.EPSILON) * 100) / 100;
+}
 
 
 const SpotsBrowser = () => {
@@ -71,7 +76,7 @@ const SpotsBrowser = () => {
                                         <i className="fa-solid fa-star"></i>
                                     </span>
                                     <span className="rating-number">
-                                        {avgRating}
+                                        {roundRating(avgRating)}
                                     </span>
                                 </div>
                             </div>

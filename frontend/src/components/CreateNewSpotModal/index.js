@@ -71,6 +71,7 @@ const CreateNewSpotModal = () => {
                 async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
+                    else if (data && data.title.includes('Error')) setErrors(data.message);
                 }
             );
 };
@@ -94,7 +95,7 @@ const CreateNewSpotModal = () => {
             <div className='create-spot-modal-form'>
                 <div className='form-information'>
                     <form className='create-spot-form' onSubmit={handleSubmit}>
-                        <ul>
+                        <ul className="error-list">
                             {errors.map((error, idx) => (
                                 <li key={idx}>{error}</li>
                             ))}
@@ -111,7 +112,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid address.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -126,7 +127,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid city.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -141,7 +142,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid state.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -156,7 +157,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid country.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -171,7 +172,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Make sure the spot name is less than 50 characters.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -186,7 +187,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please write at least 20 characters.
                             </div>
                         </div>
                         <div className='input-box'>
@@ -201,7 +202,7 @@ const CreateNewSpotModal = () => {
                                 />
                             </div>
                             <div className="single-error-information">
-                                Make sure your passwords match.
+                                Please enter a valid price.
                             </div>
                         </div>
                         <div className='input-box'>

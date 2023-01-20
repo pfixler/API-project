@@ -10,7 +10,10 @@ const UserReviews = () => {
     const dispatch = useDispatch();
     const userReviewsObj = useSelector(state => state.review.userReviews);
     const userReviews = Object.values(userReviewsObj);
+    const spotsObj = useSelector(state=>state.spot.allSpots);
+    const spots = Object.values(spotsObj);
     // const [reviewId, setReviewId] = useState();
+
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
