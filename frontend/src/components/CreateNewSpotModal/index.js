@@ -70,8 +70,9 @@ const CreateNewSpotModal = () => {
             .catch(
                 async (res) => {
                     const data = await res.json();
+                    console.log(data.errors)
                     if (data && data.errors) setErrors(data.errors);
-                    else if (data && data.title.includes('Error')) setErrors(data.message);
+                    else if (data && data.title.includes('Error')) setErrors([data.message]);
                 }
             );
 };
