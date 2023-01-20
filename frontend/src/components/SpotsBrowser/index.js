@@ -79,9 +79,9 @@ const SpotsBrowser = () => {
                         </div>
                         ))}
                 </div>
-                <Route path='/spots/:spotId'>
+                {/* <Route path='/spots/:spotId'>
                     <SpotDetails />
-                </Route>
+                </Route> */}
         </div>
       );
 };

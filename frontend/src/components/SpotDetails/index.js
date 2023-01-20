@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetails, deleteSpot } from '../../store/spot';
 import { getSpotReviews } from '../../store/review';
+import { Route } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import EditSpotModal from '../EditSpotModal';
 import CreateNewReviewModal from '../CreateNewReviewModal';
@@ -13,11 +14,13 @@ import "./SpotDetails.css"
 const SpotDetails = () => {
     const history = useHistory();
     const { spotId } = useParams();
+    // const [reviewsGetter, setReviewsGetter] = useState(-1);
 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spot.oneSpot);
     const spotReviewsObj = useSelector(state => state.review.spotReviews);
     const spotReviews = Object.values(spotReviewsObj);
+
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -31,8 +34,13 @@ const SpotDetails = () => {
     useEffect(() => {
         dispatch(getSpotReviews(spotId));
         dispatch(getSpotDetails(spotId));
-    }, [dispatch]);
+    }, [dispatch, spotId]);
 
+    // useEffect(() => {
+    //     if (spotReviews.length > reviewsGetter) {
+    //         setReviewsGetter(spotReviews.length)
+    //     }
+    // }, [reviewsGetter]);
 
     if (!spot) {
         return null;
@@ -212,6 +220,9 @@ const SpotDetails = () => {
                     </div>
                 </div>
             </div>
+            {/* <Route path='/spots/:spotId'>
+                <SpotDetails />
+            </Route> */}
         </div>
     )
 }

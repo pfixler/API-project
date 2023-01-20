@@ -79,6 +79,7 @@ const CreateNewSpotModal = () => {
         if (spotGetter) {
             history.push(`/spots/${spotGetter.id}`)
         }
+        setSpotGetter();
     }, [spotGetter])
 
     const handleCancelClick = (e) => {

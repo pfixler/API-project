@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { getSpotDetails } from "./spot";
 
 const LOAD_SPOT_REVIEWS = 'review/LOAD_SPOT_REVIEWS';
 const LOAD_USER_REVIEWS = 'review/LOAD_USER_REVIEWS';
@@ -44,7 +45,7 @@ export const getUserReviews = () => async (dispatch) => {
 };
 
 export const createReview = (newReview, spotId) => async (dispatch) => {
-    console.log('spotid in thunk', spotId)
+    // console.log('spotid in thunk', spotId)
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -52,9 +53,10 @@ export const createReview = (newReview, spotId) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const beforeReview = await response.json();
+        // const beforeReview = await response.json();
         const response1 = await fetch(`/api/spots/${spotId}/reviews`);
         if (response1.ok) {
+            await dispatch(getSpotDetails(spotId));
             const reviewsList = await response1.json();
             const reviewArray = reviewsList.Reviews;
             const review = reviewArray[reviewArray.length-1];
@@ -63,14 +65,16 @@ export const createReview = (newReview, spotId) => async (dispatch) => {
     }
 };
 
-export const deleteReview = (reviewId) => async (dispatch) => {
-    const response = csrfFetch(`/api/reviews/${reviewId}`, {
-        method: 'DELETE',
+export const deleteReview = (deletereview) => async (dispatch) => {
+    // console.log('begining of delete thunk')
+    const response = await csrfFetch(`/api/reviews/${deletereview.id}`, {
+        method: "DELETE",
     });
 
     if (response.ok) {
+        // console.log('in delete thunk', response);
         const review = await response.json();
-        dispatch(deleteOne(review));
+        dispatch(deleteOne(deletereview));
     }
 };
 
@@ -97,8 +101,9 @@ const reviewReducer = (state = initialState, action) => {
             newState.spotReviews[action.review.id] = action.review;
             return newState;
         case DELETE_REVIEW:
-            newState = {...state};
-            delete newState.userReviews[action.reviewId];
+            newState = {...state, userReviews: {...state.userReviews}};
+            // console.log('action.review', action.review);
+            delete newState.userReviews[action.review.id];
             return newState;
         default:
             return state;

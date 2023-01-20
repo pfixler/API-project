@@ -74,7 +74,7 @@ export const createSpot = (newSpot, newImage) => async (dispatch) => {
         //remove and change add a spot in reducer
         //make sure added object looks the same as other objects
         // await dispatch(getAllSpots());
-        
+
         return spot;
     }
 };
@@ -101,14 +101,14 @@ export const editSpot = (editedSpot) => async (dispatch) => {
 };
 
 export const deleteSpot = (deleteSpot) => async (dispatch) => {
-    console.log(deleteSpot);
+    // console.log(deleteSpot);
     const response = await csrfFetch(`/api/spots/${deleteSpot.id}`, {
         method: "DELETE",
     });
 
     if (response.ok) {
         const spot = await response.json();
-        dispatch(deleteOne(spot));
+        dispatch(deleteOne(deleteSpot));
     }
 };
 
@@ -128,9 +128,9 @@ const spotReducer = (state = initialState, action) => {
             newState.oneSpot = action.spot;
             return newState;
         case ADD_ONE_SPOT:
-            newState = {...state};
+            newState = {...state, oneSpot: {}};
             // console.log(action.spot);
-            newState.allSpots[action.spot.id] = action.spot;
+            newState.oneSpot[action.spot.id] = action.spot;
             // console.log(newState);
             return newState;
         case EDIT_ONE_SPOT:
@@ -138,8 +138,8 @@ const spotReducer = (state = initialState, action) => {
             newState.oneSpot = action.spot;
             return newState;
         case DELETE_ONE_SPOT:
-            newState = {...state};
-            delete newState.allSpots[action.spotId];
+            newState = {...state, oneSpot: {...state.oneSpot}};
+            delete newState.oneSpot[action.spot.id];
             return newState;
         default:
             return state;
