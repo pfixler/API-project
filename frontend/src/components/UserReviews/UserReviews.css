@@ -1,0 +1,67 @@
+.user-reviews {
+    padding-right: 25%;
+    padding-left: 25%;
+    padding-top: 40px;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.user-reviews-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.user-reviews-body {
+    padding-top: 8px;
+}
+
+.single-user-review {
+    padding-top: 8px;
+}
+
+.user-review-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.review-spot-date-box {
+
+}
+
+.user-review-spot {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.user-review-date {
+    font-size: 14px;
+    color: #717171;
+
+}
+
+.delete-review-button {
+    height: 65%;
+    width: 20%;
+}
+
+.delete-review-button button {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+    color: white;
+    border-radius: 8px;
+    /* outline: none; */
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.user-review-text {
+    
+}

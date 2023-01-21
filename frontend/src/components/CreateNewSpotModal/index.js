@@ -70,7 +70,7 @@ const CreateNewSpotModal = () => {
             .catch(
                 async (res) => {
                     const data = await res.json();
-                    console.log(data.errors)
+                    // console.log(data.errors)
                     if (data && data.errors) setErrors(data.errors);
                     else if (data && data.title.includes('Error')) setErrors([data.message]);
                 }
@@ -210,7 +210,7 @@ const CreateNewSpotModal = () => {
                             <div className='input-field'>
                                 <input
                                     className="input-data"
-                                    type="text"
+                                    type="url"
                                     placeholder="Image Url"
                                     required
                                     value={url}
