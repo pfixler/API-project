@@ -8,10 +8,13 @@ const UserReviews = () => {
     const history = useHistory();
     const { userId } = useParams();
     const dispatch = useDispatch();
+    const user = useSelector((state => state.session.user));
+    // const session  = useSelector((state => state.session));
     const userReviewsObj = useSelector(state => state.review.userReviews);
     const userReviews = Object.values(userReviewsObj);
-    const spotsObj = useSelector(state=>state.spot.allSpots);
-    const spots = Object.values(spotsObj);
+    // const numReviews = userReviews.length;
+    // const [spotOwner, setSpotOwner] = useState(true);
+
     // const [reviewId, setReviewId] = useState();
 
 
@@ -25,6 +28,24 @@ const UserReviews = () => {
         // setReviewId();
     }
 
+    // useEffect(() => {
+    //     if (user) {
+    //         if (userId === user.id) {
+    //             setSpotOwner(true);
+    //         }
+    //     }
+    //     else {
+    //         setSpotOwner(false);
+    //     }
+    // }, [dispatch, session]);
+
+    // useEffect(() => {
+    //     if (!user) {
+    //         history.push('/');
+    //     }
+    // }, [session])
+
+
     useEffect(() => {
         dispatch(getUserReviews())
     }, [dispatch])
@@ -33,23 +54,42 @@ const UserReviews = () => {
         return null;
     }
 
+    // if (!(typeof userReviews === Array)) {
+    //     return null;
+    // }
+
     return (
         <div className='user-reviews'>
-            {userReviews.map((review) => (
-                <div className='single-user-review' key={review.id}>
-                    <div className='user-review-details'>
-                        <div className='user-review-date'>
-                            {month[Number(userReviews[0].updatedAt.split('-')[1])]}&nbsp;{review.updatedAt.split('-')[0]}
+            <div className="user-reviews-header">
+                <div className="user-name">
+                    {user.firstName}'s&nbsp;reviews
+                </div>
+                {/* <div className="number-reviews">
+                    {numReviews}&nbsp;reviews
+                </div> */}
+            </div>
+            <div className="user-reviews-body">
+                {userReviews.map((review) => (
+                    <div className='single-user-review' key={review.id}>
+                        <div className='user-review-details'>
+                            <div className="review-spot-date-box">
+                                <div className="user-review-spot">
+                                    {review.Spot.name}
+                                </div>
+                                <div className='user-review-date'>
+                                    {month[Number(userReviews[0].updatedAt.split('-')[1])]}&nbsp;{review.updatedAt.split('-')[0]}
+                                </div>
+                            </div>
+                            <div className="delete-review-button">
+                                <button onClick={() => deleteReviewFunction(review)}>Delete Review</button>
+                            </div>
+                        </div>
+                        <div className='user-review-text'>
+                            {review.review}
                         </div>
                     </div>
-                    <div className='user-review-text'>
-                        {review.review}
-                    </div>
-                    <div className="delete-review-button">
-                        <button onClick={() => deleteReviewFunction(review)}>Delete Review</button>
-                    </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     )
 }

@@ -19,9 +19,12 @@ const SpotDetails = () => {
 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spot.oneSpot);
+    const spotOwnerId = spot.ownerId;
+    const user = useSelector(state => state.session.user);
+    const session = useSelector(state => state.session);
     const spotReviewsObj = useSelector(state => state.review.spotReviews);
     const spotReviews = Object.values(spotReviewsObj);
-    console.log(typeof spot.avgStarRating);
+    const [spotOwner, setSpotOwner] = useState(true);
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -31,6 +34,17 @@ const SpotDetails = () => {
         await dispatch(deleteSpot(spot));
         history.push('/');
     }
+
+    useEffect(() => {
+        if (user) {
+            if (spotOwnerId === user.id) {
+                setSpotOwner(true);
+            }
+        }
+        else {
+            setSpotOwner(false);
+        }
+    }, [dispatch, spotId]);
 
     useEffect(() => {
         dispatch(getSpotReviews(spotId));
@@ -92,21 +106,26 @@ const SpotDetails = () => {
                                     </div>
                                 </span>
                             </div>
-                            <div className='spot-details-action-buttons'>
-                                <div className='edit-spot-box'>
-                                    <div className='edit-spot-button'>
-                                        <OpenModalButton
-                                            buttonText="Edit Spot"
-                                            modalComponent={<EditSpotModal spot={spot}/>}
-                                        />
+                            {spotOwner ?
+                                <div className='spot-details-action-buttons'>
+                                    <div className='edit-spot-box'>
+                                        <div className='edit-spot-button'>
+                                            <OpenModalButton
+                                                buttonText="Edit Spot"
+                                                modalComponent={<EditSpotModal spot={spot}/>}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className='delete-spot-box'>
+                                        <div className='delete-spot-button'>
+                                            <button onClick={deleteSpotFunction}>Delete Spot</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='delete-spot-box'>
-                                    <div className='delete-spot-button'>
-                                        <button onClick={deleteSpotFunction}>Delete Spot</button>
-                                    </div>
-                                </div>
-                            </div>
+                                :
+                                // <span>Must be owner to manipulate spot</span>
+                                null
+                            }
                         </div>
                     </div>
                 </div>
@@ -199,14 +218,19 @@ const SpotDetails = () => {
                         <span className='rating-number' id='review-rating-number'>
                             {roundRating(spot.avgStarRating)} · {spot.numReviews} reviews
                         </span>
-                        <div className='create-review-button-box'>
-                            <div className='create-review-button'>
-                                <OpenModalButton
-                                    buttonText="Create a Review"
-                                    modalComponent={<CreateNewReviewModal spotId={spotId}/>}
-                                />
+                        {spotOwner ?
+                            // <span>Spot owner can not leave a review</span>
+                            null
+                            :
+                            <div className='create-review-button-box'>
+                                <div className='create-review-button'>
+                                    <OpenModalButton
+                                        buttonText="Create a Review"
+                                        modalComponent={<CreateNewReviewModal spotId={spotId}/>}
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <div className='spot-details-reviews'>
                         {spotReviews.map(({id, review, updatedAt, User}) => (
