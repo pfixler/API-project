@@ -90,10 +90,10 @@ export const editSpot = (editedSpot) => async (dispatch) => {
     if (response.ok) {
         const beforeSpot = await response.json();
         const response1 = await fetch(`/api/spots/${beforeSpot.id}`);
-        console.log('response1', response1)
+        // console.log('response1', response1)
         if (response1.ok) {
             const spot = await response1.json();
-            console.log('spot in thunk', spot)
+            // console.log('spot in thunk', spot)
             dispatch(editOne(spot));
             return spot;
         }
