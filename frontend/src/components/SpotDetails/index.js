@@ -36,26 +36,21 @@ const SpotDetails = () => {
     }
 
     useEffect(() => {
-        if (user) {
-            if (spotOwnerId === user.id) {
-                setSpotOwner(true);
-            }
-        }
-        else {
-            setSpotOwner(false);
-        }
-    }, [dispatch, spotId]);
-
-    useEffect(() => {
         dispatch(getSpotReviews(spotId));
         dispatch(getSpotDetails(spotId));
     }, [dispatch, spotId]);
 
-    // useEffect(() => {
-    //     if (spotReviews.length > reviewsGetter) {
-    //         setReviewsGetter(spotReviews.length)
-    //     }
-    // }, [reviewsGetter]);
+    useEffect(() => {
+        if (user) {
+            if (spotOwnerId === user.id) {
+                return setSpotOwner(true);
+            }
+        }
+        else {
+            return setSpotOwner(false);
+        }
+    }, [dispatch, spotId, session]);
+
 
     if (!spot) {
         return null;
