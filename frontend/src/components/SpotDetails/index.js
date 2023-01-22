@@ -41,7 +41,7 @@ const SpotDetails = () => {
     }, [dispatch, spotId]);
 
     useEffect(() => {
-        console.log('user', user, 'spot owner id', spotOwnerId);
+        // console.log('user', user, 'spot owner id', spotOwnerId);
         if (user) {
             if (spotOwnerId === user.id) {
                 return setSpotOwner(true);
