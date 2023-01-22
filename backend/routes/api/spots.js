@@ -124,6 +124,10 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 
     const errorArray = [];
 
+    if (review.length > 255) {
+        errorArray.push("Review must be fewer than 256 characters")
+    }
+
     if (!reviewSpot) {
         errorArray.push("Spot couldn't be found")
     }
@@ -605,6 +609,11 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         validLng = false;
     }
 
+    if (address.length > 255 || city.length > 255 || state.length > 255 ||
+        country.length > 255 || name.length > 255 || description.length > 255) {
+        errorArray.push("Inputs must be fewer than 256 charcters");
+    }
+
     if (!spot) {
         errorArray.push("Spot couldn't be found");
     }
@@ -837,6 +846,10 @@ router.post('/', requireAuth, async (req, res, next) => {
         validLng = false;
     }
 
+    if (address.length > 255 || city.length > 255 || state.length > 255 ||
+        country.length > 255 || name.length > 255 || description.length > 255) {
+        errorArray.push("Inputs must be fewer than 256 charcters");
+    }
 
     if (!address) {
         errorArray.push('Street address is required')

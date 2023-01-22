@@ -102,21 +102,15 @@ function Navigation({ isLoaded }){
             </div>
           </NavLink>
         </div>
-        <div className='create-spot-box'>
+        {/* <div className='create-spot-box'>
           <div className='create-spot-button'>
-            {/* <NavLink className='create-spot-link' to={`/`} target="_blank">
-
-                create new spot
-            </NavLink> */}
             <OpenModalButton
 
                       buttonText="Create a Spot"
                       modalComponent={<CreateNewSpotModal/>}
                   />
           </div>
-        </div>
-        {/* <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-        <div id="myDropdown" class="header-dropdown-content"> */}
+        </div> */}
         <div className='menu-box'>
           <div className='dropdown-menu-box'>
             <button className='dropdown-menu-button' ref={buttonRef} onClick={clickMenuButton}>

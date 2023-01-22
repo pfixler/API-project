@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
 import { NavLink, useHistory } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import CreateNewSpotModal from "../CreateNewSpotModal";
 
 function ProfileButton({ user }) {
   const history = useHistory();
@@ -51,6 +53,11 @@ function ProfileButton({ user }) {
         <p>{user.email}</p>
       </div>
       <section></section>
+      <OpenModalButton
+          buttonText="Create a Spot"
+          modalComponent={<CreateNewSpotModal/>}
+      />
+        <section></section>
         {/* <div className="yes-session-box-item"> */}
           <NavLink to={`/${user.id}/reviews`} target="_blank">
             <button>User Reviews</button>

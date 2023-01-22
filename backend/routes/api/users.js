@@ -14,18 +14,24 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage('Please provide a valid email.'),
+  check('firstName')
+    .isLength({ max: 255 })
+    .withMessage('Please provide a first name that is 255 characters or less.'),
+  check('lastName')
+    .isLength({ max: 255 })
+    .withMessage('Please provide a last name that is 255 characters or less.'),
   check('username')
     .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
+    .isLength({ min: 4, max: 255 })
+    .withMessage('Please provide a username between 4 and 255 characters.'),
   check('username')
     .not()
     .isEmail()
     .withMessage('Username cannot be an email.'),
   check('password')
     .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
+    .isLength({ min: 6, max: 255 })
+    .withMessage('Password must be between 6 and 255 characters.'),
   handleValidationErrors
 ];
 
