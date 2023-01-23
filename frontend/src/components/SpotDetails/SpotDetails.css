@@ -103,7 +103,7 @@ span {
 }
 
 .review-list-button {
-    cursor: pointer;
+    /* cursor: pointer; */
     position: relative;
     outline: none;
     background: transparent;
@@ -135,7 +135,7 @@ span {
 }
 
 .location-button {
-    cursor: pointer;
+    /* cursor: pointer; */
     position: relative;
     outline: none;
     background: transparent;
