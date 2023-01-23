@@ -48,7 +48,7 @@ const SpotDetails = () => {
             }
         }
         return setSpotOwner(false);
-    }, [dispatch, spot]);
+    }, [dispatch, spot, session]);
 
 
     if (!spot) {
